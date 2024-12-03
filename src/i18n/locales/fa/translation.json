@@ -1,0 +1,40 @@
+{
+  "auth": {
+    "createAccount": "ایجاد حساب کاربری",
+    "loginAccount": "ورود به حساب کاربری",
+    "username": "نام کاربری",
+    "email": "آدرس ایمیل",
+    "password": "رمز عبور",
+    "confirmPassword": "تایید رمز عبور",
+    "signUp": "ثبت نام",
+    "signingUp": "در حال ثبت نام...",
+    "login": "ورود",
+    "loggingIn": "در حال ورود...",
+    "alreadyHaveAccount": "قبلاً حساب کاربری دارید؟",
+    "dontHaveAccount": "حساب کاربری ندارید؟",
+    "toggleDarkMode": "تغییر به حالت {{mode}}",
+    "light": "روشن",
+    "dark": "تاریک"
+  },
+  "placeholders": {
+    "enterUsername": "نام کاربری خود را وارد کنید",
+    "enterEmail": "ایمیل خود را وارد کنید",
+    "enterPassword": "رمز عبور خود را وارد کنید",
+    "confirmPassword": "رمز عبور را تایید کنید"
+  },
+  "errors": {
+    "usernameRequired": "نام کاربری نمی‌تواند خالی باشد",
+    "emailRequired": "ایمیل نمی‌تواند خالی باشد",
+    "emailInvalid": "ایمیل نامعتبر است",
+    "passwordRequired": "رمز عبور نمی‌تواند خالی باشد",
+    "passwordLength": "رمز عبور باید حداقل ۶ کاراکتر باشد",
+    "confirmPasswordRequired": "تایید رمز عبور نمی‌تواند خالی باشد",
+    "passwordsDoNotMatch": "رمز عبور و تایید آن مطابقت ندارند",
+    "pageNotFound": "صفحه مورد نظر یافت نشد",
+    "pageNotFoundMessage": "متأسفیم، صفحه‌ای که به دنبال آن هستید پیدا نشد."
+  },
+  "actions": {
+    "goBack": "بازگشت",
+    "backToHome": "بازگشت به خانه"
+  }
+} 

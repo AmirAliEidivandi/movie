@@ -1,0 +1,40 @@
+{
+  "auth": {
+    "createAccount": "Create your account",
+    "loginAccount": "Login to your account",
+    "username": "Username",
+    "email": "Email address",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "signUp": "Sign up",
+    "signingUp": "Signing up...",
+    "login": "Log in",
+    "loggingIn": "Logging in...",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "toggleDarkMode": "Toggle {{mode}} Mode",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "placeholders": {
+    "enterUsername": "Enter your username",
+    "enterEmail": "Enter your email",
+    "enterPassword": "Enter your password",
+    "confirmPassword": "Confirm your password"
+  },
+  "errors": {
+    "usernameRequired": "Username field cannot be empty",
+    "emailRequired": "Email field cannot be empty",
+    "emailInvalid": "Email is invalid",
+    "passwordRequired": "Password field cannot be empty",
+    "passwordLength": "Password must be at least 6 characters",
+    "confirmPasswordRequired": "Confirm password field cannot be empty",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "pageNotFound": "Page Not Found",
+    "pageNotFoundMessage": "Sorry, we couldn't find the page you're looking for."
+  },
+  "actions": {
+    "goBack": "Go Back",
+    "backToHome": "Back to Home"
+  }
+} 
