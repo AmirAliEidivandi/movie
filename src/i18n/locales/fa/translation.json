@@ -14,7 +14,8 @@
     "dontHaveAccount": "حساب کاربری ندارید؟",
     "toggleDarkMode": "تغییر به حالت {{mode}}",
     "light": "روشن",
-    "dark": "تاریک"
+    "dark": "تاریک",
+    "registrationSuccess": "ثبت نام با موفقیت انجام شد!"
   },
   "placeholders": {
     "enterUsername": "نام کاربری خود را وارد کنید",
@@ -36,5 +37,45 @@
   "actions": {
     "goBack": "بازگشت",
     "backToHome": "بازگشت به خانه"
+  },
+  "passwordRequirements": {
+    "minLength": "حداقل ۸ کاراکتر",
+    "number": "شامل یک عدد",
+    "specialChar": "شامل یک کاراکتر خاص"
+  },
+  "dashboard": {
+    "home": "خانه",
+    "profile": "پروفایل",
+    "movies": "فیلم‌ها",
+    "favorites": "علاقه‌مندی‌ها",
+    "watchlist": "لیست تماشا",
+    "ratings": "امتیازهای من",
+    "settings": "تنظیمات",
+    "signOut": "خروج"
+  },
+  "profile": {
+    "title": "تنظیمات پروفایل",
+    "firstName": "نام",
+    "lastName": "نام خانوادگی",
+    "nickname": "نام مستعار",
+    "birthDate": "تاریخ تولد",
+    "bio": "درباره من",
+    "favoriteGenres": "ژانرهای مورد علاقه",
+    "saveChanges": "ذخیره تغییرات",
+    "updateSuccess": "پروفایل با موفقیت به‌روزرسانی شد!"
+  },
+  "genres": {
+    "action": "اکشن",
+    "adventure": "ماجراجویی",
+    "comedy": "کمدی",
+    "drama": "درام",
+    "horror": "ترسناک",
+    "romance": "عاشقانه",
+    "sci-fi": "علمی تخیلی",
+    "thriller": "هیجان‌انگیز",
+    "documentary": "مستند"
+  },
+  "common": {
+    "saveChanges": "ذخیره تغییرات"
   }
-} 
+}

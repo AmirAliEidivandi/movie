@@ -1,8 +1,11 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../contexts/ThemeContext.tsx";
 import { EmailIcon, LockIcon, UserIcon } from "../icons/index.ts";
+import { Notification } from "../ui/Notification";
 import { FormInput } from "./FormInput.tsx";
-import { useTranslation } from 'react-i18next';
+import { PasswordRequirements } from "./PasswordRequirements";
 
 interface FormData {
   username: string;
@@ -30,30 +33,34 @@ export function SignUpForm() {
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const navigate = useNavigate();
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
 
     if (!formData.username.trim()) {
-      newErrors.username = t('errors.usernameRequired');
+      newErrors.username = t("errors.usernameRequired");
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = t('errors.emailRequired');
+      newErrors.email = t("errors.emailRequired");
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = t('errors.emailInvalid');
+      newErrors.email = t("errors.emailInvalid");
     }
 
     if (!formData.password.trim()) {
-      newErrors.password = t('errors.passwordRequired');
+      newErrors.password = t("errors.passwordRequired");
     } else if (formData.password.length < 6) {
-      newErrors.password = t('errors.passwordLength');
+      newErrors.password = t("errors.passwordLength");
     }
 
     if (!formData.confirmPassword.trim()) {
-      newErrors.confirmPassword = t('errors.confirmPasswordRequired');
+      newErrors.confirmPassword = t("errors.confirmPasswordRequired");
     } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = t('errors.passwordsDoNotMatch');
+      newErrors.confirmPassword = t("errors.passwordsDoNotMatch");
     }
 
     setErrors(newErrors);
@@ -69,37 +76,38 @@ export function SignUpForm() {
     }
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    if (validateForm()) {
-      try {
-        console.log("Form submitted:", formData);
-        // Add your API call here
-        setFormData({
-          username: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-        });
-      } catch (error) {
-        console.error("Submission error:", error);
+    try {
+      if (validateForm()) {
+        setIsSubmitting(true);
+        // Simulate a successful registration
+        setTimeout(() => {
+          setIsSubmitting(false);
+          setShowNotification(true);
+          navigate("/dashboard");
+        }, 1000);
       }
+    } catch (error) {
+      // Error handling...
     }
-
-    setIsSubmitting(false);
   };
 
   return (
     <div
       className={`${
-        isDarkMode ? "bg-gray-800" : "bg-white"
-      } py-8 px-4 shadow sm:rounded-lg sm:px-10`}
+        isDarkMode ? "bg-gray-800" : "bg-white/80"
+      } backdrop-blur-sm py-8 px-4 shadow-lg sm:rounded-lg sm:px-10`}
     >
+      {showNotification && (
+        <Notification
+          message={t("auth.registrationSuccess")}
+          onClose={() => setShowNotification(false)}
+        />
+      )}
       <form className="space-y-6" onSubmit={handleSubmit}>
         <FormInput
-          label={t('auth.username')}
+          label={t("auth.username")}
           id="username"
           name="username"
           type="text"
@@ -108,11 +116,11 @@ export function SignUpForm() {
           value={formData.username}
           onChange={handleInputChange}
           error={errors.username}
-          placeholder={t('placeholders.enterUsername')}
+          placeholder={t("placeholders.enterUsername")}
         />
 
         <FormInput
-          label={t('auth.email')}
+          label={t("auth.email")}
           id="email"
           name="email"
           type="email"
@@ -121,33 +129,41 @@ export function SignUpForm() {
           value={formData.email}
           onChange={handleInputChange}
           error={errors.email}
-          placeholder={t('placeholders.enterEmail')}
+          placeholder={t("placeholders.enterEmail")}
         />
 
         <FormInput
-          label={t('auth.password')}
+          label={t("auth.password")}
           id="password"
           name="password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           required
           icon={<LockIcon />}
           value={formData.password}
           onChange={handleInputChange}
           error={errors.password}
-          placeholder={t('placeholders.enterPassword')}
+          placeholder={t("placeholders.enterPassword")}
+          showPasswordToggle
+          onTogglePassword={() => setShowPassword(!showPassword)}
+          showPassword={showPassword}
         />
 
+        <PasswordRequirements password={formData.password} />
+
         <FormInput
-          label={t('auth.confirmPassword')}
+          label={t("auth.confirmPassword")}
           id="confirmPassword"
           name="confirmPassword"
-          type="password"
+          type={showConfirmPassword ? "text" : "password"}
           required
           icon={<LockIcon />}
           value={formData.confirmPassword}
           onChange={handleInputChange}
           error={errors.confirmPassword}
-          placeholder={t('placeholders.confirmPassword')}
+          placeholder={t("placeholders.confirmPassword")}
+          showPasswordToggle
+          onTogglePassword={() => setShowConfirmPassword(!showConfirmPassword)}
+          showPassword={showConfirmPassword}
         />
 
         <div>
@@ -160,7 +176,7 @@ export function SignUpForm() {
                 : "bg-indigo-600 hover:bg-indigo-700"
             } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 transition-colors`}
           >
-            {isSubmitting ? t('auth.signingUp') : t('auth.signUp')}
+            {isSubmitting ? t("auth.signingUp") : t("auth.signUp")}
           </button>
         </div>
       </form>

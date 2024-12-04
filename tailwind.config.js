@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/forms"), require("tailwind-scrollbar")],
   future: {
     hoverOnlyWhenSupported: true,
   },

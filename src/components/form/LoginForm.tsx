@@ -24,6 +24,7 @@ export function LoginForm() {
 
   const [errors, setErrors] = useState<LoginErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const validateForm = (): boolean => {
     const newErrors: LoginErrors = {};
@@ -74,8 +75,10 @@ export function LoginForm() {
   return (
     <div
       className={`${
-        isDarkMode ? "bg-gray-800" : "bg-white"
-      } py-8 px-4 shadow sm:rounded-lg sm:px-10`}
+        isDarkMode 
+          ? "bg-gray-800" 
+          : "bg-white/80"
+      } backdrop-blur-sm py-8 px-4 shadow-lg sm:rounded-lg sm:px-10`}
     >
       <form className="space-y-6" onSubmit={handleSubmit}>
         <FormInput
@@ -95,13 +98,16 @@ export function LoginForm() {
           label={t('auth.password')}
           id="password"
           name="password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           required
           icon={<LockIcon />}
           value={loginData.password}
           onChange={handleInputChange}
           error={errors.password}
           placeholder={t('placeholders.enterPassword')}
+          showPasswordToggle
+          onTogglePassword={() => setShowPassword(!showPassword)}
+          showPassword={showPassword}
         />
 
         <div>

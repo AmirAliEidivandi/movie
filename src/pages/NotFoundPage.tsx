@@ -6,7 +6,8 @@ export function NotFoundPage() {
   const { isDarkMode } = useTheme();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const isRTL = useTheme().language === "fa";
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === "fa";
 
   return (
     <div

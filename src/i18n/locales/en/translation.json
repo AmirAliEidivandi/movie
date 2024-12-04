@@ -14,7 +14,8 @@
     "dontHaveAccount": "Don't have an account?",
     "toggleDarkMode": "Toggle {{mode}} Mode",
     "light": "Light",
-    "dark": "Dark"
+    "dark": "Dark",
+    "registrationSuccess": "Registration successful!"
   },
   "placeholders": {
     "enterUsername": "Enter your username",
@@ -36,5 +37,45 @@
   "actions": {
     "goBack": "Go Back",
     "backToHome": "Back to Home"
+  },
+  "passwordRequirements": {
+    "minLength": "At least 8 characters",
+    "number": "Contains a number",
+    "specialChar": "Contains a special character"
+  },
+  "dashboard": {
+    "home": "Home",
+    "profile": "Profile",
+    "movies": "Movies",
+    "favorites": "Favorites",
+    "watchlist": "Watchlist",
+    "ratings": "My Ratings",
+    "settings": "Settings",
+    "signOut": "Sign Out"
+  },
+  "profile": {
+    "title": "Profile Settings",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "nickname": "Nickname",
+    "birthDate": "Birth Date",
+    "bio": "Bio",
+    "favoriteGenres": "Favorite Genres",
+    "saveChanges": "Save Changes",
+    "updateSuccess": "Profile updated successfully!"
+  },
+  "genres": {
+    "action": "Action",
+    "adventure": "Adventure",
+    "comedy": "Comedy",
+    "drama": "Drama",
+    "horror": "Horror",
+    "romance": "Romance",
+    "sci-fi": "Sci-Fi",
+    "thriller": "Thriller",
+    "documentary": "Documentary"
+  },
+  "common": {
+    "saveChanges": "Save Changes"
   }
-} 
+}
