@@ -1,0 +1,22 @@
+{
+  "dashboard": {
+    "profile": "پروفایل",
+    "signOut": "خروج"
+  },
+  "errors": {
+    "auth": {
+      "invalidCredentials": "ایمیل یا رمز عبور نامعتبر است",
+      "loginRequired": "ابتدا وارد شوید",
+      "emailTaken": "این ایمیل قبلاً ثبت شده است"
+    },
+    "user": {
+      "notFound": "کاربر یافت نشد",
+      "updateFailed": "بروزرسانی پروفایل با خطا مواجه شد"
+    },
+    "validation": {
+      "required": "{field} الزامی است",
+      "invalidEmail": "فرمت ایمیل نامعتبر است",
+      "minLength": "{field} باید حداقل {min} کاراکتر باشد"
+    }
+  }
+}

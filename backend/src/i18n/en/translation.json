@@ -1,0 +1,22 @@
+{
+  "dashboard": {
+    "profile": "Profile",
+    "signOut": "Sign Out"
+  },
+  "errors": {
+    "auth": {
+      "invalidCredentials": "Invalid email or password",
+      "loginRequired": "Login first to access this endpoint",
+      "emailTaken": "Email is already registered"
+    },
+    "user": {
+      "notFound": "User not found",
+      "updateFailed": "Failed to update profile"
+    },
+    "validation": {
+      "required": "{field} is required",
+      "invalidEmail": "Invalid email format",
+      "minLength": "{field} must be at least {min} characters"
+    }
+  }
+}

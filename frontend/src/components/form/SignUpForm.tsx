@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { signUp } from "../../api/auth";
 import { useTheme } from "../../contexts/ThemeContext.tsx";
 import { EmailIcon, LockIcon, UserIcon } from "../icons/index.ts";
 import { Notification } from "../ui/Notification";
@@ -19,6 +20,7 @@ interface FormErrors {
   email?: string;
   password?: string;
   confirmPassword?: string;
+  submit?: string;
 }
 
 export function SignUpForm() {
@@ -33,8 +35,6 @@ export function SignUpForm() {
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const navigate = useNavigate();
 
@@ -78,18 +78,28 @@ export function SignUpForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      if (validateForm()) {
+    if (validateForm()) {
+      try {
         setIsSubmitting(true);
-        // Simulate a successful registration
-        setTimeout(() => {
-          setIsSubmitting(false);
-          setShowNotification(true);
-          navigate("/dashboard");
-        }, 1000);
+        const response = await signUp({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        });
+
+        localStorage.setItem("token", response.token);
+
+        setShowNotification(true);
+
+        navigate("/dashboard");
+      } catch (error: any) {
+        setErrors({
+          ...errors,
+          submit: error.response?.data?.message || "Signup failed",
+        });
+      } finally {
+        setIsSubmitting(false);
       }
-    } catch (error) {
-      // Error handling...
     }
   };
 
@@ -136,16 +146,13 @@ export function SignUpForm() {
           label={t("auth.password")}
           id="password"
           name="password"
-          type={showPassword ? "text" : "password"}
+          type="password"
           required
           icon={<LockIcon />}
           value={formData.password}
           onChange={handleInputChange}
           error={errors.password}
           placeholder={t("placeholders.enterPassword")}
-          showPasswordToggle
-          onTogglePassword={() => setShowPassword(!showPassword)}
-          showPassword={showPassword}
         />
 
         <PasswordRequirements password={formData.password} />
@@ -154,16 +161,13 @@ export function SignUpForm() {
           label={t("auth.confirmPassword")}
           id="confirmPassword"
           name="confirmPassword"
-          type={showConfirmPassword ? "text" : "password"}
+          type="password"
           required
           icon={<LockIcon />}
           value={formData.confirmPassword}
           onChange={handleInputChange}
           error={errors.confirmPassword}
           placeholder={t("placeholders.confirmPassword")}
-          showPasswordToggle
-          onTogglePassword={() => setShowConfirmPassword(!showConfirmPassword)}
-          showPassword={showConfirmPassword}
         />
 
         <div>

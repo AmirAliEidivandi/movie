@@ -2,8 +2,8 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { DashboardPage } from "../pages/DashboardPage";
 import { LoginPage } from "../pages/LoginPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
+import { ProfilePage } from "../pages/ProfilePage";
 import { SignUpPage } from "../pages/SignUpPage";
-import { ProfilePage } from "../pages/dashboard/ProfilePage";
 
 export function AppRoutes() {
   return (

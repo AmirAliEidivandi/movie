@@ -1,8 +1,10 @@
 import { FormEvent, useState } from "react";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import { useTheme } from "../../contexts/ThemeContext";
 import { EmailIcon, LockIcon } from "../icons";
 import { FormInput } from "./FormInput";
+import { login } from "../../api/auth";
+import { useNavigate } from "react-router-dom";
 
 interface LoginData {
   email: string;
@@ -12,6 +14,7 @@ interface LoginData {
 interface LoginErrors {
   email?: string;
   password?: string;
+  submit?: string;
 }
 
 export function LoginForm() {
@@ -24,19 +27,19 @@ export function LoginForm() {
 
   const [errors, setErrors] = useState<LoginErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const validateForm = (): boolean => {
     const newErrors: LoginErrors = {};
 
     if (!loginData.email.trim()) {
-      newErrors.email = t('errors.emailRequired');
+      newErrors.email = t("errors.emailRequired");
     } else if (!/\S+@\S+\.\S+/.test(loginData.email)) {
-      newErrors.email = t('errors.emailInvalid');
+      newErrors.email = t("errors.emailInvalid");
     }
 
     if (!loginData.password.trim()) {
-      newErrors.password = t('errors.passwordRequired');
+      newErrors.password = t("errors.passwordRequired");
     }
 
     setErrors(newErrors);
@@ -54,35 +57,40 @@ export function LoginForm() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
     if (validateForm()) {
       try {
-        console.log("Login form submitted:", loginData);
-        // Add your login API call here
-        setLoginData({
-          email: "",
-          password: "",
+        setIsSubmitting(true);
+        const response = await login({
+          email: loginData.email,
+          password: loginData.password,
         });
-      } catch (error) {
-        console.error("Login error:", error);
+
+        // Store token in localStorage
+        localStorage.setItem("token", response.token);
+
+        // Navigate to dashboard
+        navigate("/dashboard");
+      } catch (error: any) {
+        // Handle error (show error message)
+        setErrors({
+          ...errors,
+          submit: error.response?.data?.message || "Login failed"
+        });
+      } finally {
+        setIsSubmitting(false);
       }
     }
-
-    setIsSubmitting(false);
   };
 
   return (
     <div
       className={`${
-        isDarkMode 
-          ? "bg-gray-800" 
-          : "bg-white/80"
+        isDarkMode ? "bg-gray-800" : "bg-white/80"
       } backdrop-blur-sm py-8 px-4 shadow-lg sm:rounded-lg sm:px-10`}
     >
       <form className="space-y-6" onSubmit={handleSubmit}>
         <FormInput
-          label={t('auth.email')}
+          label={t("auth.email")}
           id="email"
           name="email"
           type="email"
@@ -91,23 +99,20 @@ export function LoginForm() {
           value={loginData.email}
           onChange={handleInputChange}
           error={errors.email}
-          placeholder={t('placeholders.enterEmail')}
+          placeholder={t("placeholders.enterEmail")}
         />
 
         <FormInput
-          label={t('auth.password')}
+          label={t("auth.password")}
           id="password"
           name="password"
-          type={showPassword ? "text" : "password"}
+          type="password"
           required
           icon={<LockIcon />}
           value={loginData.password}
           onChange={handleInputChange}
           error={errors.password}
-          placeholder={t('placeholders.enterPassword')}
-          showPasswordToggle
-          onTogglePassword={() => setShowPassword(!showPassword)}
-          showPassword={showPassword}
+          placeholder={t("placeholders.enterPassword")}
         />
 
         <div>
@@ -120,7 +125,7 @@ export function LoginForm() {
                 : "bg-indigo-600 hover:bg-indigo-700"
             } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 transition-colors`}
           >
-            {isSubmitting ? t('auth.loggingIn') : t('auth.login')}
+            {isSubmitting ? t("auth.loggingIn") : t("auth.login")}
           </button>
         </div>
       </form>

@@ -1,16 +1,23 @@
-import { useState } from "react";
+import {
+  AtSymbolIcon,
+  BriefcaseIcon,
+  MapPinIcon,
+  PhoneIcon,
+  UserIcon,
+} from "@heroicons/react/24/outline";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { getProfile, updateProfile } from "../../api/auth";
 import { useTheme } from "../../contexts/ThemeContext";
 import { FormInput } from "../form/FormInput";
 import { GenreCheckbox } from "../form/GenreCheckbox";
-import { PhoneIcon, AtSymbolIcon, UserIcon, BriefcaseIcon, MapPinIcon } from "@heroicons/react/24/outline";
 
 interface ProfileData {
   firstName: string;
   lastName: string;
   nickname: string;
   email: string;
-  phone: string;
+  phoneNumber: string;
   occupation: string;
   location: string;
   bio: string;
@@ -21,13 +28,15 @@ export function ProfileForm() {
   const { isDarkMode } = useTheme();
   const { t, i18n } = useTranslation();
   const isRTL = i18n.dir() === "rtl";
+  const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [profileData, setProfileData] = useState<ProfileData>({
     firstName: "",
     lastName: "",
     nickname: "",
     email: "",
-    phone: "",
+    phoneNumber: "",
     occupation: "",
     location: "",
     bio: "",
@@ -35,8 +44,15 @@ export function ProfileForm() {
   });
 
   const genres = [
-    "Action", "Adventure", "Comedy", "Drama", 
-    "Horror", "Romance", "Sci-Fi", "Thriller", "Documentary"
+    "Action",
+    "Adventure",
+    "Comedy",
+    "Drama",
+    "Horror",
+    "Romance",
+    "Sci-Fi",
+    "Thriller",
+    "Documentary",
   ];
 
   const handleGenreChange = (genre: string, checked: boolean) => {
@@ -48,11 +64,64 @@ export function ProfileForm() {
     }));
   };
 
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const fetchProfile = async () => {
+    try {
+      setIsLoading(true);
+      const data = await getProfile(localStorage.getItem("token") || "");
+      setProfileData(data);
+    } catch (error) {
+      console.error("Failed to fetch profile:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      setIsSaving(true);
+      const updateData = {
+        firstName: profileData.firstName,
+        lastName: profileData.lastName,
+        phoneNumber: profileData.phoneNumber,
+        occupation: profileData.occupation,
+        location: profileData.location,
+        nickname: profileData.nickname,
+        bio: profileData.bio,
+        favoriteGenres: profileData.favoriteGenres,
+      };
+
+      await updateProfile(localStorage.getItem("token") || "", updateData);
+      // Show success message
+    } catch (error) {
+      console.error("Failed to update profile:", error);
+      // Show error message
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <form className="space-y-6 max-w-3xl mx-auto pb-8">
+    <form onSubmit={handleSubmit} className="space-y-6 max-w-3xl mx-auto pb-8">
       {/* Basic Information */}
-      <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'} p-6 rounded-lg shadow-sm`}>
-        <h2 className={`text-lg font-medium mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+      <div
+        className={`${
+          isDarkMode ? "bg-gray-800" : "bg-gray-50"
+        } p-6 rounded-lg shadow-sm`}
+      >
+        <h2
+          className={`text-lg font-medium mb-4 ${
+            isDarkMode ? "text-white" : "text-gray-900"
+          }`}
+        >
           {t("profile.basicInfo")}
         </h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -66,7 +135,7 @@ export function ProfileForm() {
               setProfileData((prev) => ({ ...prev, firstName: e.target.value }))
             }
             icon={<UserIcon className="w-5 h-5" />}
-            className={`${isRTL ? 'text-right' : 'text-left'}`}
+            className={`${isRTL ? "text-right" : "text-left"}`}
           />
 
           <FormInput
@@ -79,14 +148,22 @@ export function ProfileForm() {
               setProfileData((prev) => ({ ...prev, lastName: e.target.value }))
             }
             icon={<UserIcon className="w-5 h-5" />}
-            className={`${isRTL ? 'text-right' : 'text-left'}`}
+            className={`${isRTL ? "text-right" : "text-left"}`}
           />
         </div>
       </div>
 
       {/* Contact Information */}
-      <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'} p-6 rounded-lg shadow-sm`}>
-        <h2 className={`text-lg font-medium mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+      <div
+        className={`${
+          isDarkMode ? "bg-gray-800" : "bg-gray-50"
+        } p-6 rounded-lg shadow-sm`}
+      >
+        <h2
+          className={`text-lg font-medium mb-4 ${
+            isDarkMode ? "text-white" : "text-gray-900"
+          }`}
+        >
           {t("profile.contactInfo")}
         </h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -100,7 +177,9 @@ export function ProfileForm() {
               setProfileData((prev) => ({ ...prev, email: e.target.value }))
             }
             icon={<AtSymbolIcon className="w-5 h-5" />}
-            className={`${isRTL ? 'text-right' : 'text-left'}`}
+            className={`${isRTL ? "text-right" : "text-left"}`}
+            readOnly
+            disabled
           />
 
           <FormInput
@@ -108,19 +187,30 @@ export function ProfileForm() {
             id="phone"
             name="phone"
             type="tel"
-            value={profileData.phone}
+            value={profileData.phoneNumber}
             onChange={(e) =>
-              setProfileData((prev) => ({ ...prev, phone: e.target.value }))
+              setProfileData((prev) => ({
+                ...prev,
+                phoneNumber: e.target.value,
+              }))
             }
             icon={<PhoneIcon className="w-5 h-5" />}
-            className={`${isRTL ? 'text-right' : 'text-left'}`}
+            className={`${isRTL ? "text-right" : "text-left"}`}
           />
         </div>
       </div>
 
       {/* Additional Information */}
-      <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'} p-6 rounded-lg shadow-sm`}>
-        <h2 className={`text-lg font-medium mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+      <div
+        className={`${
+          isDarkMode ? "bg-gray-800" : "bg-gray-50"
+        } p-6 rounded-lg shadow-sm`}
+      >
+        <h2
+          className={`text-lg font-medium mb-4 ${
+            isDarkMode ? "text-white" : "text-gray-900"
+          }`}
+        >
           {t("profile.additionalInfo")}
         </h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -131,10 +221,13 @@ export function ProfileForm() {
             type="text"
             value={profileData.occupation}
             onChange={(e) =>
-              setProfileData((prev) => ({ ...prev, occupation: e.target.value }))
+              setProfileData((prev) => ({
+                ...prev,
+                occupation: e.target.value,
+              }))
             }
             icon={<BriefcaseIcon className="w-5 h-5" />}
-            className={`${isRTL ? 'text-right' : 'text-left'}`}
+            className={`${isRTL ? "text-right" : "text-left"}`}
           />
 
           <FormInput
@@ -147,7 +240,7 @@ export function ProfileForm() {
               setProfileData((prev) => ({ ...prev, location: e.target.value }))
             }
             icon={<MapPinIcon className="w-5 h-5" />}
-            className={`${isRTL ? 'text-right' : 'text-left'}`}
+            className={`${isRTL ? "text-right" : "text-left"}`}
           />
 
           <FormInput
@@ -160,7 +253,7 @@ export function ProfileForm() {
               setProfileData((prev) => ({ ...prev, nickname: e.target.value }))
             }
             icon={<UserIcon className="w-5 h-5" />}
-            className={`${isRTL ? 'text-right' : 'text-left'}`}
+            className={`${isRTL ? "text-right" : "text-left"}`}
           />
         </div>
 
@@ -178,11 +271,12 @@ export function ProfileForm() {
             name="bio"
             rows={4}
             className={`mt-1 block w-full rounded-lg shadow-sm
-              ${isDarkMode
-                ? "bg-gray-700 border-gray-600 text-white"
-                : "bg-white border-gray-300 text-gray-900"
+              ${
+                isDarkMode
+                  ? "bg-gray-700 border-gray-600 text-white"
+                  : "bg-white border-gray-300 text-gray-900"
               }
-              ${isRTL ? 'text-right pr-3' : 'text-left pl-3'}
+              ${isRTL ? "text-right pr-3" : "text-left pl-3"}
               focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm
             `}
             value={profileData.bio}
@@ -194,11 +288,23 @@ export function ProfileForm() {
       </div>
 
       {/* Favorite Genres */}
-      <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-gray-50'} p-6 rounded-lg shadow-sm`}>
-        <h2 className={`text-lg font-medium mb-4 ${isDarkMode ? "text-white" : "text-gray-900"}`}>
+      <div
+        className={`${
+          isDarkMode ? "bg-gray-800" : "bg-gray-50"
+        } p-6 rounded-lg shadow-sm`}
+      >
+        <h2
+          className={`text-lg font-medium mb-4 ${
+            isDarkMode ? "text-white" : "text-gray-900"
+          }`}
+        >
           {t("profile.favoriteGenres")}
         </h2>
-        <div className={`grid grid-cols-2 md:grid-cols-3 gap-4 ${isRTL ? "text-right" : "text-left"}`}>
+        <div
+          className={`grid grid-cols-2 md:grid-cols-3 gap-4 ${
+            isRTL ? "text-right" : "text-left"
+          }`}
+        >
           {genres.map((genre) => (
             <GenreCheckbox
               key={genre}
@@ -216,7 +322,11 @@ export function ProfileForm() {
         <button
           type="submit"
           className={`px-6 py-2.5 rounded-lg text-sm font-medium text-white
-            ${isDarkMode ? "bg-indigo-500 hover:bg-indigo-600" : "bg-indigo-600 hover:bg-indigo-700"}
+            ${
+              isDarkMode
+                ? "bg-indigo-500 hover:bg-indigo-600"
+                : "bg-indigo-600 hover:bg-indigo-700"
+            }
             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
             transition-colors duration-200
           `}

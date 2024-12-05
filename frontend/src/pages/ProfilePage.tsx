@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { ProfileForm } from "../../components/dashboard/ProfileForm";
-import { useTheme } from "../../contexts/ThemeContext";
+import { ProfileForm } from "../components/dashboard/ProfileForm";
+import { useTheme } from "../contexts/ThemeContext";
 
 export function ProfilePage() {
   const { t } = useTranslation();
