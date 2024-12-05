@@ -62,7 +62,14 @@
     "bio": "Bio",
     "favoriteGenres": "Favorite Genres",
     "saveChanges": "Save Changes",
-    "updateSuccess": "Profile updated successfully!"
+    "updateSuccess": "Profile updated successfully!",
+    "basicInfo": "Basic Information",
+    "contactInfo": "Contact Information",
+    "additionalInfo": "Additional Information",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "occupation": "Occupation",
+    "location": "Location"
   },
   "genres": {
     "action": "Action",

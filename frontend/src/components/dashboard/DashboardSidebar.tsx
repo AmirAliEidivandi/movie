@@ -46,9 +46,9 @@ export function DashboardSidebar() {
 
   return (
     <aside
-      className={`fixed ${isRTL ? 'right-0' : 'left-0'} top-16 h-[calc(100vh-4rem)] w-64 ${
-        isDarkMode ? "bg-gray-800" : "bg-white"
-      } shadow-sm`}
+      className={`fixed ${isRTL ? 'right-0' : 'left-0'} top-16 bottom-0 w-64 
+        ${isDarkMode ? "bg-gray-800" : "bg-white"} 
+        shadow-sm overflow-y-auto`}
     >
       <nav className="p-4 space-y-1">
         {navItems.map((item) => (

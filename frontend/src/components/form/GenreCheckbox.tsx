@@ -4,13 +4,14 @@ interface GenreCheckboxProps {
   label: string;
   checked: boolean;
   onChange: (checked: boolean) => void;
+  className?: string;
 }
 
-export function GenreCheckbox({ label, checked, onChange }: GenreCheckboxProps) {
+export function GenreCheckbox({ label, checked, onChange, className = '' }: GenreCheckboxProps) {
   const { isDarkMode } = useTheme();
 
   return (
-    <label className="inline-flex items-center cursor-pointer group">
+    <label className={`inline-flex items-center cursor-pointer group ${className}`}>
       <div className="relative">
         <input
           type="checkbox"
@@ -47,7 +48,7 @@ export function GenreCheckbox({ label, checked, onChange }: GenreCheckboxProps) 
           )}
         </div>
       </div>
-      <span className={`ml-2 text-sm ${
+      <span className={`mx-2 text-sm ${
         isDarkMode ? 'text-gray-200' : 'text-gray-700'
       } group-hover:text-indigo-500 transition-colors`}>
         {label}

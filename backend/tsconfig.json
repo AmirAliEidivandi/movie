@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@filters/*": ["src/common/filters/*"],
+      "@health/*": ["src/health/*"],
+      "@config/*": ["src/config/*"],
+      "@decorators/*": ["src/common/decorators/*"],
+      "@interfaces/*": ["src/common/interfaces/*"],
+      "@utils/*": ["src/common/utils/*"],
+      "@interceptors/*": ["src/common/interceptors/*"],
+      "@guards/*": ["src/common/guards/*"],
+      "@middlewares/*": ["src/common/middlewares/*"]
+    }
+  }
+}

@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* RTL Support */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .rtl\:space-x-reverse > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+[dir="rtl"] .form-container {
+  direction: rtl;
+}
+
+[dir="rtl"] .icon-container {
+  right: 0;
+  left: auto;
+}
+
+[dir="rtl"] input {
+  text-align: right;
+  padding-right: 2.5rem;
+  padding-left: 1rem;
+}
+
+[dir="rtl"] .error-message {
+  text-align: right;
+}
+
+/* Remove all the previous datepicker styles and replace with these */
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.react-datepicker {
+  @apply font-sans border border-gray-200 rounded-lg shadow-lg !important;
+}
+
+/* Light theme */
+.react-datepicker.light {
+  @apply bg-white !important;
+}
+
+.react-datepicker.light .react-datepicker__header {
+  @apply bg-gray-50 border-gray-200 !important;
+}
+
+.react-datepicker.light .react-datepicker__current-month,
+.react-datepicker.light .react-datepicker__day-name {
+  @apply text-gray-900 !important;
+}
+
+.react-datepicker.light .react-datepicker__day {
+  @apply text-gray-700 hover:bg-gray-100 !important;
+}
+
+.react-datepicker.light .react-datepicker__day--selected {
+  @apply bg-indigo-500 text-white hover:bg-indigo-600 !important;
+}
+
+/* Dark theme */
+.react-datepicker.dark {
+  @apply bg-gray-800 border-gray-700 !important;
+}
+
+.react-datepicker.dark .react-datepicker__header {
+  @apply bg-gray-700 border-gray-600 !important;
+}
+
+.react-datepicker.dark .react-datepicker__current-month,
+.react-datepicker.dark .react-datepicker__day-name {
+  @apply text-white !important;
+}
+
+.react-datepicker.dark .react-datepicker__day {
+  @apply text-gray-200 hover:bg-gray-600 !important;
+}
+
+.react-datepicker.dark .react-datepicker__day--selected {
+  @apply bg-indigo-500 text-white hover:bg-indigo-600 !important;
+}
+
+/* Year and Month dropdowns */
+.react-datepicker__year-dropdown,
+.react-datepicker__month-dropdown {
+  @apply w-2/3 left-[16.6667%] rounded-md !important; /* Use percentage for left */
+}
+
+.react-datepicker.dark .react-datepicker__year-dropdown,
+.react-datepicker.dark .react-datepicker__month-dropdown {
+  @apply bg-gray-800 border border-gray-700 !important;
+}
+
+.react-datepicker.dark .react-datepicker__year-option,
+.react-datepicker.dark .react-datepicker__month-option {
+  @apply text-gray-200 hover:bg-gray-700 !important;
+}
+
+.react-datepicker.dark .react-datepicker__year-option--selected,
+.react-datepicker.dark .react-datepicker__month-option--selected {
+  @apply bg-indigo-500 text-white !important;
+}
+
+/* RTL Support */
+[dir="rtl"] .react-datepicker__header {
+  @apply text-right !important;
+}
+
+[dir="rtl"] .react-datepicker__day-names,
+[dir="rtl"] .react-datepicker__week {
+  @apply flex flex-row-reverse !important;
+}
+
+/* Add these scrollbar styles */
+@layer utilities {
+  .scrollbar-custom {
+    @apply scrollbar-thin scrollbar-track-transparent hover:scrollbar-track-gray-200 dark:hover:scrollbar-track-gray-700 scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600;
+  }
+}
+
+/* Apply the custom scrollbar to the main content area */
+main {
+  @apply scrollbar-custom;
+}

@@ -62,7 +62,14 @@
     "bio": "درباره من",
     "favoriteGenres": "ژانرهای مورد علاقه",
     "saveChanges": "ذخیره تغییرات",
-    "updateSuccess": "پروفایل با موفقیت به‌روزرسانی شد!"
+    "updateSuccess": "پروفایل با موفقیت به‌روزرسانی شد!",
+    "basicInfo": "اطلاعات پایه",
+    "contactInfo": "اطلاعات تماس",
+    "additionalInfo": "اطلاعات تکمیلی",
+    "email": "آدرس ایمیل",
+    "phone": "شماره تلفن",
+    "occupation": "شغل",
+    "location": "موقعیت مکانی"
   },
   "genres": {
     "action": "اکشن",
