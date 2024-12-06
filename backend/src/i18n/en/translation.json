@@ -7,7 +7,12 @@
     "auth": {
       "invalidCredentials": "Invalid email or password",
       "loginRequired": "Login first to access this endpoint",
-      "emailTaken": "Email is already registered"
+      "emailTaken": "Email is already registered",
+      "invalidRefreshToken": "Invalid refresh token",
+      "invalidOldPassword": "Invalid old password",
+      "passwordsDoNotMatch": "Passwords do not match",
+      "userNotFound": "User not found",
+      "invalidPasswordResetToken": "Invalid password reset token"
     },
     "user": {
       "notFound": "User not found",

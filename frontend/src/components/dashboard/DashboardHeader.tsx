@@ -2,6 +2,8 @@ import { Menu, Transition } from "@headlessui/react";
 import { BellIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { Fragment } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../api/auth";
 import { useTheme } from "../../contexts/ThemeContext";
 import { DarkModeToggle } from "../layout/DarkModeToggle";
 import { LanguageSwitcher } from "../layout/LanguageSwitcher";
@@ -9,7 +11,18 @@ import { LanguageSwitcher } from "../layout/LanguageSwitcher";
 export function DashboardHeader() {
   const { isDarkMode } = useTheme();
   const { t, i18n } = useTranslation();
-  const isRTL = i18n.dir() === 'rtl';
+  const isRTL = i18n.dir() === "rtl";
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+      navigate("/login");
+    }
+  };
 
   return (
     <header
@@ -67,7 +80,9 @@ export function DashboardHeader() {
               leaveTo="transform opacity-0 scale-95"
             >
               <Menu.Items
-                className={`absolute ${isRTL ? 'left-0' : 'right-0'} mt-2 w-48 rounded-lg shadow-lg py-1 ${
+                className={`absolute ${
+                  isRTL ? "left-0" : "right-0"
+                } mt-2 w-48 rounded-lg shadow-lg py-1 ${
                   isDarkMode
                     ? "bg-gray-800 ring-1 ring-gray-700"
                     : "bg-white ring-1 ring-black ring-opacity-5"
@@ -85,7 +100,9 @@ export function DashboardHeader() {
                           : ""
                       } ${
                         isDarkMode ? "text-gray-200" : "text-gray-900"
-                      } block px-4 py-2 text-sm ${isRTL ? 'text-right' : 'text-left'}`}
+                      } block px-4 py-2 text-sm ${
+                        isRTL ? "text-right" : "text-left"
+                      }`}
                     >
                       {t("dashboard.profile")}
                     </a>
@@ -93,8 +110,8 @@ export function DashboardHeader() {
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <a
-                      href="/login"
+                    <button
+                      onClick={handleLogout}
                       className={`${
                         active
                           ? isDarkMode
@@ -103,10 +120,10 @@ export function DashboardHeader() {
                           : ""
                       } ${
                         isDarkMode ? "text-gray-200" : "text-gray-900"
-                      } block px-4 py-2 text-sm ${isRTL ? 'text-right' : 'text-left'}`}
+                      } block w-full px-4 py-2 text-sm text-left`}
                     >
                       {t("dashboard.signOut")}
-                    </a>
+                    </button>
                   )}
                 </Menu.Item>
               </Menu.Items>

@@ -1,8 +1,8 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import enTranslations from './locales/en/translation.json';
-import faTranslations from './locales/fa/translation.json';
+import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import { initReactI18next } from "react-i18next";
+import enTranslations from "./locales/en/translation.json";
+import faTranslations from "./locales/fa/translation.json";
 
 i18n
   .use(LanguageDetector)
@@ -10,21 +10,21 @@ i18n
   .init({
     resources: {
       en: {
-        translation: enTranslations
+        translation: enTranslations,
       },
       fa: {
-        translation: faTranslations
-      }
+        translation: faTranslations,
+      },
     },
-    fallbackLng: 'en',
+    fallbackLng: "en",
     debug: true,
-    supportedLngs: ['en', 'fa'],
+    supportedLngs: ["en", "fa"],
     interpolation: {
       escapeValue: false,
     },
   });
 
 // Set initial direction
-document.dir = i18n.language === 'fa' ? 'rtl' : 'ltr';
+document.dir = i18n.language === "fa" ? "rtl" : "ltr";
 
-export default i18n; 
+export default i18n;

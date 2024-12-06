@@ -7,7 +7,12 @@
     "auth": {
       "invalidCredentials": "ایمیل یا رمز عبور نامعتبر است",
       "loginRequired": "ابتدا وارد شوید",
-      "emailTaken": "این ایمیل قبلاً ثبت شده است"
+      "emailTaken": "این ایمیل قبلاً ثبت شده است",
+      "invalidRefreshToken": "توکن رفرش نامعتبر است",
+      "invalidOldPassword": "رمز عبور قدیمی نامعتبر است",
+      "passwordsDoNotMatch": "رمز عبور ها یکسان نیستند",
+      "userNotFound": "کاربر یافت نشد",
+      "invalidPasswordResetToken": "توکن بازیابی رمز عبور نامعتبر است"
     },
     "user": {
       "notFound": "کاربر یافت نشد",

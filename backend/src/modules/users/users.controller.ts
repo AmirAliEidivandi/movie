@@ -1,3 +1,4 @@
+import { Language } from '@decorators/language.decorator';
 import { Body, Controller, Get, Put, UseGuards } from '@nestjs/common';
 import { GetUser } from '../auth/decorators/get-user.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -14,15 +15,20 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get('profile')
-  getProfile(@GetUser() user: User) {
-    return this.usersService.getProfile(user._id);
+  getProfile(@GetUser() user: User, @Language() language: string) {
+    return this.usersService.getProfile(user._id, language);
   }
 
   @Put('profile')
   updateProfile(
     @GetUser() user: User,
     @Body() updateProfileDto: UpdateProfileDto,
+    @Language() language: string,
   ) {
-    return this.usersService.updateProfile(user._id, updateProfileDto);
+    return this.usersService.updateProfile(
+      user._id,
+      updateProfileDto,
+      language,
+    );
   }
 }

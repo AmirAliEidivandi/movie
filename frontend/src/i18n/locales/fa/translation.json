@@ -15,7 +15,17 @@
     "toggleDarkMode": "تغییر به حالت {{mode}}",
     "light": "روشن",
     "dark": "تاریک",
-    "registrationSuccess": "ثبت نام با موفقیت انجام شد!"
+    "registrationSuccess": "ثبت نام با موفقیت انجام شد!",
+    "forgotPassword": "فراموشی رمز عبور",
+    "resetPassword": "بازیابی رمز عبور",
+    "resetPasswordInstructions": "آدرس ایمیل خود را وارد کنید و ما به شما دستورالعمل‌های بازیابی رمز عبور را ارسال خواهیم کرد.",
+    "passwordResetSent": "دستورالعمل‌های بازیابی رمز عبور به ایمیل شما ارسال شده است.",
+    "changePassword": "تغییر رمز عبور",
+    "oldPassword": "رمز عبور فعلی",
+    "newPassword": "رمز عبور جدید",
+    "confirmNewPassword": "رمز عبور جدید را تایید کنید",
+    "passwordChanged": "رمز عبور با موفقیت تغییر یافت",
+    "logoutSuccess": "با موفقیت خارج شدید"
   },
   "placeholders": {
     "enterUsername": "نام کاربری خود را وارد کنید",

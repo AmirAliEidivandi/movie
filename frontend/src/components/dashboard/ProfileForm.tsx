@@ -71,7 +71,7 @@ export function ProfileForm() {
   const fetchProfile = async () => {
     try {
       setIsLoading(true);
-      const data = await getProfile(localStorage.getItem("token") || "");
+      const data = await getProfile(localStorage.getItem("accessToken") || "");
       setProfileData(data);
     } catch (error) {
       console.error("Failed to fetch profile:", error);
@@ -95,7 +95,10 @@ export function ProfileForm() {
         favoriteGenres: profileData.favoriteGenres,
       };
 
-      await updateProfile(localStorage.getItem("token") || "", updateData);
+      await updateProfile(
+        localStorage.getItem("accessToken") || "",
+        updateData
+      );
       // Show success message
     } catch (error) {
       console.error("Failed to update profile:", error);

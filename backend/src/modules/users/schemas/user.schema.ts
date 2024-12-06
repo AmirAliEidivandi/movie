@@ -40,6 +40,15 @@ export class User {
 
   @Prop({ type: [String], default: [] })
   favoriteGenres: string[];
+
+  @Prop()
+  refreshToken?: string;
+
+  @Prop()
+  resetPasswordToken?: string;
+
+  @Prop()
+  resetPasswordExpires?: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

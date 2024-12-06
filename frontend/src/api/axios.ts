@@ -1,4 +1,5 @@
 import axios from "axios";
+import i18next from 'i18next'
 
 const api = axios.create({
   baseURL: "http://localhost:3101/api/v1",
@@ -13,6 +14,8 @@ api.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
+  config.headers['x-custom-lang'] = i18next.language || 'en';
   return config;
 });
 

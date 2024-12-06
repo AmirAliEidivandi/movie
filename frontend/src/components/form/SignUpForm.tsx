@@ -87,7 +87,8 @@ export function SignUpForm() {
           password: formData.password,
         });
 
-        localStorage.setItem("token", response.token);
+        localStorage.setItem("accessToken", response.accessToken);
+        localStorage.setItem("refreshToken", response.refreshToken);
 
         setShowNotification(true);
 

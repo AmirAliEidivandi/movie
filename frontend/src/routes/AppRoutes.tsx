@@ -4,6 +4,8 @@ import { LoginPage } from "../pages/LoginPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { ProfilePage } from "../pages/ProfilePage";
 import { SignUpPage } from "../pages/SignUpPage";
+// import { ForgotPasswordPage } from "../pages/ForgotPasswordPage";
+// import { ResetPasswordPage } from "../pages/ResetPasswordPage";
 
 export function AppRoutes() {
   return (
@@ -17,6 +19,8 @@ export function AppRoutes() {
         </Route>
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="*" element={<NotFoundPage />} />
+        {/* <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} /> */}
       </Routes>
     </BrowserRouter>
   );

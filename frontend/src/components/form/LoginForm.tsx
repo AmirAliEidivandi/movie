@@ -5,6 +5,7 @@ import { EmailIcon, LockIcon } from "../icons";
 import { FormInput } from "./FormInput";
 import { login } from "../../api/auth";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface LoginData {
   email: string;
@@ -16,7 +17,6 @@ interface LoginErrors {
   password?: string;
   submit?: string;
 }
-
 export function LoginForm() {
   const { isDarkMode } = useTheme();
   const { t } = useTranslation();
@@ -66,7 +66,8 @@ export function LoginForm() {
         });
 
         // Store token in localStorage
-        localStorage.setItem("token", response.token);
+        localStorage.setItem("accessToken", response.accessToken);
+        localStorage.setItem("refreshToken", response.refreshToken);
 
         // Navigate to dashboard
         navigate("/dashboard");
@@ -114,6 +115,19 @@ export function LoginForm() {
           error={errors.password}
           placeholder={t("placeholders.enterPassword")}
         />
+
+        <div className="flex items-center justify-end">
+          <Link
+            to="/forgot-password"
+            className={`text-sm font-medium ${
+              isDarkMode 
+                ? "text-indigo-400 hover:text-indigo-300" 
+                : "text-indigo-600 hover:text-indigo-500"
+            }`}
+          >
+            {t("auth.forgotPassword")}
+          </Link>
+        </div>
 
         <div>
           <button
