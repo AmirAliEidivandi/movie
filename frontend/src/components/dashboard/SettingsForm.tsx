@@ -149,6 +149,7 @@ export function SettingsForm() {
       toast.success(t("settings.emailVerified"));
       setShowVerificationModal(false);
       setVerificationCode("");
+      setIsEmailVerified(true); // Update the email verification status immediately
     } catch (error) {
       toast.error(t("errors.invalidVerificationCode"));
     }
