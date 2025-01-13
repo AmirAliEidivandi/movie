@@ -9,12 +9,7 @@ interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
 }
 
-export function FormInput({
-  label,
-  icon,
-  error,
-  ...props
-}: FormInputProps) {
+export function FormInput({ label, icon, error, ...props }: FormInputProps) {
   const { isDarkMode } = useTheme();
   const { i18n } = useTranslation();
   const isRTL = i18n.dir() === "rtl";
@@ -52,7 +47,7 @@ export function FormInput({
           autoComplete="off"
           dir={isRTL ? "rtl" : "ltr"}
           className={`
-            block w-full rounded-lg
+            block w-full rounded-lg shadow-sm
             ${
               isRTL
                 ? `text-right ${icon ? "pr-10 pl-3" : "px-3"}`
@@ -68,11 +63,10 @@ export function FormInput({
             focus:outline-none focus:ring-2 
             ${
               error
-                ? "focus:ring-red-500 focus:border-red-500"
+                ? "border-red-500 focus:ring-red-500 focus:border-red-500"
                 : "focus:ring-indigo-500 focus:border-indigo-500"
             }
-            transition-all duration-200
-            text-sm
+            sm:text-sm
           `}
         />
       </div>

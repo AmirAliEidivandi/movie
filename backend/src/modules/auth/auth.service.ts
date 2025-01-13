@@ -32,14 +32,14 @@ export class AuthService {
 
   async signUp(
     signUpDto: SignUpDto,
-    language: string,
+    lang: string,
   ): Promise<{ accessToken: string; refreshToken: string }> {
     const { email } = signUpDto;
 
     const existingUser = await this.userModel.findOne({ email });
     if (existingUser) {
       throw new ConflictException(
-        this.i18n.t('errors.auth.emailTaken', { lang: language }),
+        this.i18n.t('translation.errors.auth.emailTaken', { lang }),
       );
     }
 
@@ -57,14 +57,14 @@ export class AuthService {
 
   async login(
     loginDto: LoginDto,
-    language: string,
+    lang: string,
   ): Promise<{ accessToken: string; refreshToken: string }> {
     const { email, password } = loginDto;
     const user = await this.userModel.findOne({ email });
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException(
-        this.i18n.t('errors.auth.invalidCredentials', { lang: language }),
+        this.i18n.t('translation.errors.auth.invalidCredentials', { lang }),
       );
     }
 
@@ -73,13 +73,13 @@ export class AuthService {
     return { accessToken, refreshToken };
   }
 
-  async refreshToken(userId: string, refreshToken: string, language: string) {
+  async refreshToken(userId: string, refreshToken: string, lang: string) {
     const user = await this.userModel.findOne({
       _id: userId,
     });
     if (!user || !user.refreshToken) {
       throw new UnauthorizedException(
-        this.i18n.t('errors.auth.invalidRefreshToken', { lang: language }),
+        this.i18n.t('translation.errors.auth.invalidRefreshToken', { lang }),
       );
     }
     const refreshTokenMatches = await bcrypt.compare(
@@ -88,7 +88,7 @@ export class AuthService {
     );
     if (!refreshTokenMatches) {
       throw new UnauthorizedException(
-        this.i18n.t('errors.auth.invalidRefreshToken', { lang: language }),
+        this.i18n.t('translation.errors.auth.invalidRefreshToken', { lang }),
       );
     }
     const accessToken = this.generateAccessToken(user._id);
@@ -122,11 +122,11 @@ export class AuthService {
     });
   }
 
-  async requestPasswordReset(email: string, language: string) {
+  async requestPasswordReset(email: string, lang: string) {
     const user = await this.userModel.findOne({ email });
     if (!user) {
       throw new NotFoundException(
-        this.i18n.t('errors.auth.userNotFound', { lang: language }),
+        this.i18n.t('translation.errors.auth.userNotFound', { lang }),
       );
     }
     const resetToken = crypto.randomBytes(32).toString('hex');
@@ -137,30 +137,40 @@ export class AuthService {
     });
     const resetUrl = `${this.configService.get(
       'FRONTEND_URL',
-    )}/auth/reset-password?token=${hashedToken}`;
-    const subject = 'Password Reset';
-    const text = `You are receiving this email because you (or someone else) has requested the reset of the password for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\n${resetUrl}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.\n`;
-    const html = `<p>You are receiving this email because you (or someone else) has requested the reset of the password for your account.</p><p>Please click on the following link, or paste this into your browser to complete the process:</p><p><a href="${resetUrl}">${resetUrl}</a></p><p>If you did not request this, please ignore this email and your password will remain unchanged.</p>`;
+    )}/reset-password?token=${hashedToken}`;
+    const subject = this.i18n.t('translation.emails.passwordReset.subject', {
+      lang,
+    });
+    const text = this.i18n.t('translation.emails.passwordReset.text', {
+      lang,
+      args: { url: resetUrl },
+    });
+    const html = this.i18n.t('translation.emails.passwordReset.html', {
+      lang,
+      args: { url: resetUrl },
+    });
 
     await this.mailerService.sendMail(user.email, subject, text, html);
-    return { message: 'Password reset email sent' };
+    return {
+      message: this.i18n.t('translation.emails.passwordReset.sent', { lang }),
+    };
   }
 
-  async resetPassword(dto: ResetPasswordDto, language: string) {
+  async resetPassword(dto: ResetPasswordDto, lang: string) {
     const { token, password, confirmPassword } = dto;
     const user = await this.userModel.findOne({
       resetPasswordToken: token,
     });
     if (!user || user.resetPasswordExpires < new Date()) {
       throw new UnauthorizedException(
-        this.i18n.t('errors.auth.invalidPasswordResetToken', {
-          lang: language,
+        this.i18n.t('translation.errors.auth.invalidPasswordResetToken', {
+          lang,
         }),
       );
     }
     if (password !== confirmPassword) {
       throw new BadRequestException(
-        this.i18n.t('errors.auth.passwordsDoNotMatch', { lang: language }),
+        this.i18n.t('translation.errors.auth.passwordsDoNotMatch', { lang }),
       );
     }
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -169,32 +179,30 @@ export class AuthService {
       resetPasswordToken: null,
       resetPasswordExpires: null,
     });
-    const accessToken = this.generateAccessToken(user._id);
-    const refreshToken = await this.generateRefreshToken(user._id);
-    return { accessToken, refreshToken };
+    return {
+      message: this.i18n.t('translation.emails.passwordReset.resetSuccess', {
+        lang,
+      }),
+    };
   }
 
-  async changePassword(
-    userId: string,
-    dto: ChangePasswordDto,
-    language: string,
-  ) {
+  async changePassword(userId: string, dto: ChangePasswordDto, lang: string) {
     const { oldPassword, newPassword, confirmPassword } = dto;
     const user = await this.userModel.findOne({ _id: userId });
     if (!user) {
       throw new NotFoundException(
-        this.i18n.t('errors.auth.userNotFound', { lang: language }),
+        this.i18n.t('translation.errors.auth.userNotFound', { lang }),
       );
     }
     const oldPasswordMatches = await bcrypt.compare(oldPassword, user.password);
     if (!oldPasswordMatches) {
       throw new UnauthorizedException(
-        this.i18n.t('errors.auth.invalidOldPassword', { lang: language }),
+        this.i18n.t('translation.errors.auth.invalidOldPassword', { lang }),
       );
     }
     if (newPassword !== confirmPassword) {
       throw new BadRequestException(
-        this.i18n.t('errors.auth.passwordsDoNotMatch', { lang: language }),
+        this.i18n.t('translation.errors.auth.passwordsDoNotMatch', { lang }),
       );
     }
     const hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -204,5 +212,84 @@ export class AuthService {
     const accessToken = this.generateAccessToken(user._id);
     const refreshToken = await this.generateRefreshToken(user._id);
     return { accessToken, refreshToken };
+  }
+
+  async requestEmailVerification(userId: string, lang: string) {
+    console.log(lang);
+    const user = await this.userModel.findOne({ _id: userId });
+    if (!user) {
+      throw new NotFoundException(
+        this.i18n.t('translation.errors.auth.userNotFound', { lang }),
+      );
+    }
+
+    if (user.isEmailVerified) {
+      throw new BadRequestException(
+        this.i18n.t('translation.errors.auth.emailAlreadyVerified', { lang }),
+      );
+    }
+
+    const verificationCode = Math.floor(100000 + Math.random() * 900000);
+    const verificationCodeExpires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+
+    await this.userModel.findByIdAndUpdate(user._id, {
+      verificationCode,
+      verificationCodeExpires,
+    });
+
+    const subject = this.i18n.t('translation.emails.verificationCode.subject', {
+      lang,
+    });
+    const text = this.i18n.t('translation.emails.verificationCode.text', {
+      lang,
+      args: { code: verificationCode },
+    });
+    const html = this.i18n.t('translation.emails.verificationCode.html', {
+      lang,
+      args: { code: verificationCode },
+    });
+
+    await this.mailerService.sendMail(user.email, subject, text, html);
+    return { message: 'Verification code sent' };
+  }
+
+  async verifyEmail(userId: string, code: string, lang: string) {
+    const user = await this.userModel.findById(userId);
+    if (!user) {
+      throw new NotFoundException(
+        this.i18n.t('translation.errors.auth.userNotFound', { lang }),
+      );
+    }
+
+    if (user.isEmailVerified) {
+      throw new BadRequestException(
+        this.i18n.t('translation.errors.auth.emailAlreadyVerified', { lang }),
+      );
+    }
+
+    if (
+      !user.verificationCode ||
+      user.verificationCode !== code ||
+      !user.verificationCodeExpires ||
+      user.verificationCodeExpires < new Date()
+    ) {
+      throw new UnauthorizedException(
+        this.i18n.t('translation.errors.auth.invalidVerificationCode', {
+          lang,
+        }),
+      );
+    }
+
+    await this.userModel.findByIdAndUpdate(userId, {
+      isEmailVerified: true,
+      verificationCode: null,
+      verificationCodeExpires: null,
+    });
+
+    return {
+      message: this.i18n.t('translation.emails.verificationCode.verified', {
+        lang,
+      }),
+    };
   }
 }

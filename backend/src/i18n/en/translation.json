@@ -12,16 +12,40 @@
       "invalidOldPassword": "Invalid old password",
       "passwordsDoNotMatch": "Passwords do not match",
       "userNotFound": "User not found",
-      "invalidPasswordResetToken": "Invalid password reset token"
+      "invalidPasswordResetToken": "Invalid password reset token",
+      "emailAlreadyVerified": "Email already verified",
+      "invalidVerificationCode": "Invalid verification code",
+      "passwordRequiredForDelete": "Password is required to delete account"
     },
     "user": {
       "notFound": "User not found",
-      "updateFailed": "Failed to update profile"
+      "updateFailed": "Failed to update profile",
+      "deleteFailed": "Failed to delete account"
     },
     "validation": {
       "required": "{field} is required",
       "invalidEmail": "Invalid email format",
       "minLength": "{field} must be at least {min} characters"
+    }
+  },
+  "emails": {
+    "verificationCode": {
+      "subject": "Verification Code",
+      "text": "Your verification code is {code}",
+      "html": "<p>Your verification code is <strong>{code}</strong></p>",
+      "verified": "Email verified successfully"
+    },
+    "passwordReset": {
+      "subject": "Password Reset",
+      "text": "Your password reset link is {url}",
+      "html": "<p>Your password reset link is <a href='{url}'>{url}</a></p>",
+      "sent": "Password reset email sent",
+      "resetSuccess": "Password has been reset successfully"
+    }
+  },
+  "success": {
+    "user": {
+      "deleted": "Account deleted successfully"
     }
   }
 }

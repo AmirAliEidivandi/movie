@@ -49,6 +49,15 @@ export class User {
 
   @Prop()
   resetPasswordExpires?: Date;
+
+  @Prop()
+  verificationCode?: string;
+
+  @Prop()
+  verificationCodeExpires?: Date;
+
+  @Prop({ default: false })
+  isEmailVerified?: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

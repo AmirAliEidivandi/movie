@@ -28,6 +28,10 @@ interface ChangePasswordData {
   confirmPassword: string;
 }
 
+interface DeleteAccountData {
+  password: string;
+}
+
 export const signUp = async (data: SignUpData): Promise<AuthResponse> => {
   const response = await api.post("/auth/signup", data);
   return response.data;
@@ -62,8 +66,15 @@ export const resetPassword = async (data: ResetPasswordData) => {
   return response.data;
 };
 
-export const changePassword = async (data: ChangePasswordData) => {
-  const response = await api.post("/auth/change-password", data);
+export const changePassword = async (
+  token: string,
+  data: ChangePasswordData
+) => {
+  const response = await api.post(`/auth/change-password`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 };
 
@@ -74,4 +85,47 @@ export const logout = async () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
   }
+};
+
+export const requestEmailVerification = async (token: string) => {
+  const response = await api.post(
+    `/auth/request-verification`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const verifyEmail = async (token: string, code: string) => {
+  const response = await api.post(
+    `/auth/verify-email`,
+    { code },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const getEmailVerificationStatus = async (token: string) => {
+  const response = await api.get(`/auth/email-verification-status`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
+
+export const deleteAccount = async (token: string, data: DeleteAccountData) => {
+  const response = await api.delete("/users/delete-account", {
+    headers: { Authorization: `Bearer ${token}` },
+    data,
+  });
+  return response.data;
 };

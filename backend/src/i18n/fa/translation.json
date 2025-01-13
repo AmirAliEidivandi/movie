@@ -12,16 +12,40 @@
       "invalidOldPassword": "رمز عبور قدیمی نامعتبر است",
       "passwordsDoNotMatch": "رمز عبور ها یکسان نیستند",
       "userNotFound": "کاربر یافت نشد",
-      "invalidPasswordResetToken": "توکن بازیابی رمز عبور نامعتبر است"
+      "invalidPasswordResetToken": "توکن بازیابی رمز عبور نامعتبر است",
+      "emailAlreadyVerified": "ایمیل قبلاً تایید شده است",
+      "invalidVerificationCode": "کد تایید نامعتبر است",
+      "passwordRequiredForDelete": "برای حذف حساب کاربری، رمز عبور الزامی است"
     },
     "user": {
       "notFound": "کاربر یافت نشد",
-      "updateFailed": "بروزرسانی پروفایل با خطا مواجه شد"
+      "updateFailed": "بروزرسانی پروفایل با خطا مواجه شد",
+      "deleteFailed": "حذف حساب کاربری با خطا مواجه شد"
     },
     "validation": {
       "required": "{field} الزامی است",
       "invalidEmail": "فرمت ایمیل نامعتبر است",
       "minLength": "{field} باید حداقل {min} کاراکتر باشد"
+    }
+  },
+  "emails": {
+    "verificationCode": {
+      "subject": "کد تایید",
+      "text": "کد تایید شما {code} است",
+      "html": "<p>کد تایید شما <strong>{code}</strong></p>",
+      "verified": "ایمیل با موفقیت تایید شد"
+    },
+    "passwordReset": {
+      "subject": "بازیابی رمز عبور",
+      "text": "لینک بازیابی رمز عبور شما {url} است",
+      "html": "<p>لینک بازیابی رمز عبور شما <a href='{url}'>{url}</a></p>",
+      "sent": "ایمیل بازیابی رمز عبور ارسال شد",
+      "resetSuccess": "رمز عبور با موفقیت بازیابی شد"
+    }
+  },
+  "success": {
+    "user": {
+      "deleted": "حساب کاربری با موفقیت حذف شد"
     }
   }
 }

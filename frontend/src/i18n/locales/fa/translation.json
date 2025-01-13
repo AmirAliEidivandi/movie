@@ -25,13 +25,25 @@
     "newPassword": "رمز عبور جدید",
     "confirmNewPassword": "رمز عبور جدید را تایید کنید",
     "passwordChanged": "رمز عبور با موفقیت تغییر یافت",
-    "logoutSuccess": "با موفقیت خارج شدید"
+    "logoutSuccess": "با موفقیت خارج شدید",
+    "backToLogin": "بازگشت به صفحه ورود",
+    "rememberPassword": "رمز عبور خود را به یاد آوردید؟",
+    "resetEmailSent": "دستورالعمل‌های بازیابی به ایمیل شما ارسال شد",
+    "checkEmail": "ایمیل خود را بررسی کنید",
+    "resetInstructions": "ما دستورالعمل‌های بازیابی رمز عبور را به آدرس ایمیل شما ارسال کردیم.",
+    "sendInstructions": "ارسال دستورالعمل‌های بازیابی",
+    "sendingInstructions": "در حال ارسال دستورالعمل‌ها...",
+    "resetting": "در حال بازیابی رمز عبور...",
+    "passwordResetSuccess": "رمز عبور با موفقیت بازیابی شد"
   },
   "placeholders": {
     "enterUsername": "نام کاربری خود را وارد کنید",
     "enterEmail": "ایمیل خود را وارد کنید",
     "enterPassword": "رمز عبور خود را وارد کنید",
-    "confirmPassword": "رمز عبور را تایید کنید"
+    "confirmPassword": "رمز عبور را تایید کنید",
+    "enterNewPassword": "رمز عبور جدید را وارد کنید",
+    "confirmNewPassword": "رمز عبور جدید را تایید کنید",
+    "enterCurrentPassword": "رمز عبور فعلی خود را وارد کنید"
   },
   "errors": {
     "usernameRequired": "نام کاربری نمی‌تواند خالی باشد",
@@ -41,8 +53,11 @@
     "passwordLength": "رمز عبور باید حداقل ۶ کاراکتر باشد",
     "confirmPasswordRequired": "تایید رمز عبور نمی‌تواند خالی باشد",
     "passwordsDoNotMatch": "رمز عبور و تایید آن مطابقت ندارند",
+    "invalidOldPassword": "رمز عبور فعلی نامعتبر است",
     "pageNotFound": "صفحه مورد نظر یافت نشد",
-    "pageNotFoundMessage": "متأسفیم، صفحه‌ای که به دنبال آن هستید پیدا نشد."
+    "pageNotFoundMessage": "متأسفیم، صفحه‌ای که به دنبال آن هستید پیدا نشد.",
+    "general": "مشکلی پیش آمده است. لطفاً دوباره تلاش کنید.",
+    "invalidToken": "توکن بازیابی نامعتبر یا منقضی شده است"
   },
   "actions": {
     "goBack": "بازگشت",
@@ -93,6 +108,31 @@
     "documentary": "مستند"
   },
   "common": {
-    "saveChanges": "ذخیره تغییرات"
+    "saveChanges": "ذخیره تغییرات",
+    "cancel": "انصراف",
+    "verify": "تایید",
+    "loading": "در حال بارگذاری..."
+  },
+  "settings": {
+    "emailVerification": "تایید ایمیل",
+    "emailVerificationDescription": "برای امنیت حساب کاربری خود و دریافت اعلان‌های مهم، ایمیل خود را تایید کنید.",
+    "sendVerification": "ارسال ایمیل تایید",
+    "sendingVerification": "در حال ارسال...",
+    "verificationEmailSent": "ایمیل تایید ارسال شد",
+    "changePassword": "تغییر رمز عبور",
+    "changingPassword": "در حال تغییر رمز عبور...",
+    "passwordChanged": "رمز عبور با موفقیت تغییر کرد",
+    "enterVerificationCode": "کد تایید را وارد کنید",
+    "verificationCode": "کد تایید",
+    "enterCode": "کد ۶ رقمی را وارد کنید",
+    "emailVerified": "ایمیل با موفقیت تایید شد",
+    "emailAlreadyVerified": "ایمیل شما تایید شده است",
+    "deleteAccount": "حذف حساب کاربری",
+    "deleteAccountTitle": "حذف حساب کاربری",
+    "deleteAccountDescription": "پس از حذف حساب کاربری، امکان بازگشت وجود ندارد. لطفاً مطمئن باشید.",
+    "deleteAccountButton": "حذف حساب کاربری",
+    "deleteAccountConfirm": "آیا از حذف حساب کاربری خود اطمینان دارید؟",
+    "enterPasswordToDelete": "لطفاً برای تایید حذف، رمز عبور خود را وارد کنید",
+    "deleting": "در حال حذف حساب کاربری..."
   }
 }

@@ -1,6 +1,6 @@
 import {
   ClockIcon,
-  Cog6ToothIcon,
+  CogIcon,
   FilmIcon,
   HeartIcon,
   HomeIcon,
@@ -20,7 +20,7 @@ interface NavItem {
 export function DashboardSidebar() {
   const { isDarkMode } = useTheme();
   const { t, i18n } = useTranslation();
-  const isRTL = i18n.dir() === 'rtl';
+  const isRTL = i18n.dir() === "rtl";
 
   const navItems: NavItem[] = [
     { path: "/dashboard", label: "dashboard.home", icon: HomeIcon },
@@ -40,13 +40,13 @@ export function DashboardSidebar() {
     {
       path: "/dashboard/settings",
       label: "dashboard.settings",
-      icon: Cog6ToothIcon,
+      icon: CogIcon,
     },
   ];
 
   return (
     <aside
-      className={`fixed ${isRTL ? 'right-0' : 'left-0'} top-16 bottom-0 w-64 
+      className={`fixed ${isRTL ? "right-0" : "left-0"} top-16 bottom-0 w-64 
         ${isDarkMode ? "bg-gray-800" : "bg-white"} 
         shadow-sm overflow-y-auto`}
     >
@@ -56,7 +56,9 @@ export function DashboardSidebar() {
             key={item.path}
             to={item.path}
             className={({ isActive }) => `
-              flex items-center ${isRTL ? 'space-x-reverse' : 'space-x-2'} px-4 py-2.5 rounded-lg
+              flex items-center ${
+                isRTL ? "space-x-reverse" : "space-x-2"
+              } px-4 py-2.5 rounded-lg
               transition-colors duration-200
               ${
                 isActive

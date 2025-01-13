@@ -1,6 +1,7 @@
 import { Language } from '@decorators/language.decorator';
-import { Body, Controller, Get, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Put, UseGuards } from '@nestjs/common';
 import { GetUser } from '../auth/decorators/get-user.decorator';
+import { DeleteAccountDto } from '../auth/dto/delete-account.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { User } from './schemas/user.schema';
@@ -28,6 +29,19 @@ export class UsersController {
     return this.usersService.updateProfile(
       user._id,
       updateProfileDto,
+      language,
+    );
+  }
+
+  @Delete('delete-account')
+  deleteAccount(
+    @GetUser() user: User,
+    @Body() deleteAccountDto: DeleteAccountDto,
+    @Language() language: string,
+  ) {
+    return this.usersService.deleteAccount(
+      user._id,
+      deleteAccountDto,
       language,
     );
   }

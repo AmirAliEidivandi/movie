@@ -273,13 +273,14 @@ export function ProfileForm() {
             id="bio"
             name="bio"
             rows={4}
-            className={`mt-1 block w-full rounded-lg shadow-sm
+            dir={isRTL ? "rtl" : "ltr"}
+            className={`block w-full rounded-lg shadow-sm resize-none
               ${
                 isDarkMode
                   ? "bg-gray-700 border-gray-600 text-white"
                   : "bg-white border-gray-300 text-gray-900"
               }
-              ${isRTL ? "text-right pr-3" : "text-left pl-3"}
+              ${isRTL ? "text-right px-3" : "text-left px-3"}
               focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm
             `}
             value={profileData.bio}
