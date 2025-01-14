@@ -27,13 +27,13 @@ async function bootstrap() {
   app.use(helmet());
   if (['develop', 'test', 'local'].includes(process.env.NODE_ENV)) {
     const config = new DocumentBuilder()
-      .setTitle('Solbing API')
-      .setDescription('API for Solbing system - Version 1')
+      .setTitle('Movie API')
+      .setDescription('The Movie API description')
       .setVersion('1.0')
-      .addBearerAuth()
+      .addTag('movies')
       .build();
     const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api/v1/docs', app, document);
+    SwaggerModule.setup('api', app, document);
   }
 
   app.enableCors({

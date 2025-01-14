@@ -34,7 +34,8 @@
     "sendInstructions": "Send Reset Instructions",
     "sendingInstructions": "Sending Instructions...",
     "resetting": "Resetting Password...",
-    "passwordResetSuccess": "Password has been reset successfully"
+    "passwordResetSuccess": "Password has been reset successfully",
+    "loggingOut": "Logging out..."
   },
   "placeholders": {
     "enterUsername": "Enter your username",
@@ -94,7 +95,8 @@
     "email": "Email Address",
     "phone": "Phone Number",
     "occupation": "Occupation",
-    "location": "Location"
+    "location": "Location",
+    "updateError": "Failed to update profile. Please try again."
   },
   "genres": {
     "action": "Action",
@@ -111,7 +113,9 @@
     "saveChanges": "Save Changes",
     "cancel": "Cancel",
     "verify": "Verify",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "comingSoon": "Notifications coming soon!"
   },
   "settings": {
     "emailVerification": "Email Verification",

@@ -26,7 +26,11 @@
       "@utils/*": ["src/common/utils/*"],
       "@interceptors/*": ["src/common/interceptors/*"],
       "@guards/*": ["src/common/guards/*"],
-      "@middlewares/*": ["src/common/middlewares/*"]
+      "@middlewares/*": ["src/common/middlewares/*"],
+      "@movies/*": ["src/modules/movies/*"],
+      "@users/*": ["src/modules/users/*"],
+      "@auth/*": ["src/modules/auth/*"],
+      "@logger/*": ["src/common/logger/*"]
     }
   }
 }

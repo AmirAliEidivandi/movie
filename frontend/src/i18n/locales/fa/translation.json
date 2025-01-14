@@ -34,7 +34,9 @@
     "sendInstructions": "ارسال دستورالعمل‌های بازیابی",
     "sendingInstructions": "در حال ارسال دستورالعمل‌ها...",
     "resetting": "در حال بازیابی رمز عبور...",
-    "passwordResetSuccess": "رمز عبور با موفقیت بازیابی شد"
+    "passwordResetSuccess": "رمز عبور با موفقیت بازیابی شد",
+    "logoutError": "خروج با شکست مواجه شد. لطفاً دوباره تلاش کنید.",
+    "loggingOut": "در حال خروج..."
   },
   "placeholders": {
     "enterUsername": "نام کاربری خود را وارد کنید",
@@ -94,7 +96,8 @@
     "email": "آدرس ایمیل",
     "phone": "شماره تلفن",
     "occupation": "شغل",
-    "location": "موقعیت مکانی"
+    "location": "موقعیت مکانی",
+    "updateError": "به‌روزرسانی پروفایل با شکست مواجه شد. لطفاً دوباره تلاش کنید."
   },
   "genres": {
     "action": "اکشن",
@@ -111,7 +114,9 @@
     "saveChanges": "ذخیره تغییرات",
     "cancel": "انصراف",
     "verify": "تایید",
-    "loading": "در حال بارگذاری..."
+    "loading": "در حال بارگذاری...",
+    "saving": "در حال ذخیره...",
+    "comingSoon": "به زودی!"
   },
   "settings": {
     "emailVerification": "تایید ایمیل",

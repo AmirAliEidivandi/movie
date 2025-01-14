@@ -1,12 +1,16 @@
+import { AuthModule } from '@auth/auth.module';
 import databaseConfig from '@config/database.config';
 import { HealthController } from '@health/health.controller';
+import { MoviesModule } from '@movies/movies.module';
 import { HttpModule } from '@nestjs/axios';
+import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TerminusModule } from '@nestjs/terminus';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { UsersModule } from '@users/users.module';
 import {
   AcceptLanguageResolver,
   HeaderResolver,
@@ -15,9 +19,6 @@ import {
 import * as path from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './modules/auth/auth.module';
-import { UsersModule } from './modules/users/users.module';
-
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -25,6 +26,11 @@ import { UsersModule } from './modules/users/users.module';
       cache: true,
       load: [databaseConfig],
       envFilePath: `.env.${process.env.NODE_ENV || 'local'}`,
+    }),
+    CacheModule.register({
+      isGlobal: true,
+      ttl: 60 * 60 * 1000, // 1 hour
+      max: 100, // maximum number of items in cache
     }),
     ThrottlerModule.forRootAsync({
       imports: [ConfigModule],
@@ -68,6 +74,7 @@ import { UsersModule } from './modules/users/users.module';
     HttpModule,
     AuthModule,
     UsersModule,
+    MoviesModule,
   ],
   controllers: [AppController, HealthController],
   providers: [AppService, { provide: APP_GUARD, useClass: ThrottlerGuard }],

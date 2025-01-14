@@ -6,6 +6,7 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { getProfile, updateProfile } from "../../api/auth";
 import { useTheme } from "../../contexts/ThemeContext";
@@ -43,6 +44,9 @@ export function ProfileForm() {
     favoriteGenres: [],
   });
 
+  const [originalProfileData, setOriginalProfileData] =
+    useState<ProfileData | null>(null);
+
   const genres = [
     "Action",
     "Adventure",
@@ -73,6 +77,7 @@ export function ProfileForm() {
       setIsLoading(true);
       const data = await getProfile(localStorage.getItem("accessToken") || "");
       setProfileData(data);
+      setOriginalProfileData(data);
     } catch (error) {
       console.error("Failed to fetch profile:", error);
     } finally {
@@ -82,6 +87,11 @@ export function ProfileForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (JSON.stringify(profileData) === JSON.stringify(originalProfileData)) {
+      console.log("No changes detected, skipping update.");
+      return;
+    }
+
     try {
       setIsSaving(true);
       const updateData = {
@@ -99,10 +109,11 @@ export function ProfileForm() {
         localStorage.getItem("accessToken") || "",
         updateData
       );
-      // Show success message
+      setOriginalProfileData(profileData);
+      toast.success(t("profile.updateSuccess"));
     } catch (error) {
-      console.error("Failed to update profile:", error);
-      // Show error message
+      console.log("Showing error toast");
+      toast.error(t("profile.updateError"));
     } finally {
       setIsSaving(false);
     }
@@ -325,17 +336,18 @@ export function ProfileForm() {
       <div className="flex justify-end">
         <button
           type="submit"
+          disabled={isSaving}
           className={`px-6 py-2.5 rounded-lg text-sm font-medium text-white
             ${
               isDarkMode
-                ? "bg-indigo-500 hover:bg-indigo-600"
-                : "bg-indigo-600 hover:bg-indigo-700"
+                ? "bg-indigo-500 hover:bg-indigo-600 disabled:bg-indigo-400"
+                : "bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-300"
             }
             focus:outline-none focus:ring-2 focus:ring-indigo-500
-            transition-colors duration-200
+            transition-colors duration-200 disabled:cursor-not-allowed
           `}
         >
-          {t("common.saveChanges")}
+          {isSaving ? t("common.saving") : t("common.saveChanges")}
         </button>
       </div>
     </form>
