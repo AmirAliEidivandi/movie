@@ -7,6 +7,7 @@ import { ProfilePage } from "../pages/ProfilePage";
 import { ResetPasswordPage } from "../pages/ResetPasswordPage";
 import { SettingsPage } from "../pages/SettingsPage";
 import { SignUpPage } from "../pages/SignUpPage";
+import HomePage from "../pages/HomePage";
 
 export function AppRoutes() {
   return (
@@ -21,7 +22,7 @@ export function AppRoutes() {
           <Route index element={<Navigate to="profile" replace />} />
           <Route path="profile" element={<ProfilePage />} />
         </Route>
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

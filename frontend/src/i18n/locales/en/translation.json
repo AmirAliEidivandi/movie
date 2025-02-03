@@ -138,5 +138,8 @@
     "deleteAccountConfirm": "Are you sure you want to delete your account?",
     "enterPasswordToDelete": "Please enter your password to confirm deletion",
     "deleting": "Deleting account..."
+  },
+  "home": {
+    "title": "Home Page"
   }
 }

@@ -223,7 +223,8 @@ export class MoviesService {
   }
 
   async invalidateCache(pattern: string): Promise<void> {
-    const keys = await this.cacheManager.store.keys();
+    const store = this.cacheManager.stores[0] as any;
+    const keys = (await store.store.opts.store.keys('*')) || [];
     const matchingKeys = keys.filter((key) => key.includes(pattern));
 
     await Promise.all(matchingKeys.map((key) => this.cacheManager.del(key)));

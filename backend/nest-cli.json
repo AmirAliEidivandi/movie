@@ -3,8 +3,10 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "compilerOptions": {
-    "assets": [
-      { "include": "i18n/**/*", "watchAssets": true }
-    ]
+    "deleteOutDir": true,
+    "watchAssets": true,
+    "builder": "swc",
+    "typeCheck": true,
+    "assets": [{ "include": "i18n/**/*", "watchAssets": true }]
   }
 }
