@@ -11,11 +11,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { TerminusModule } from '@nestjs/terminus';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { UsersModule } from '@users/users.module';
-import {
-  AcceptLanguageResolver,
-  HeaderResolver,
-  I18nModule,
-} from 'nestjs-i18n';
+import { HeaderResolver, I18nModule } from 'nestjs-i18n';
 import * as path from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -50,19 +46,15 @@ import { AppService } from './app.service';
       useFactory: (configService: ConfigService) => ({
         fallbackLanguage: configService.get('FALLBACK_LANGUAGE'),
         loaderOptions: {
-          path: path.join(__dirname, '/i18n/'),
+          path: path.join(process.cwd(), 'src/i18n/'),
           watch: true,
         },
+        resolvers: [new HeaderResolver(['x-custom-lang'])],
         typesOutputPath: path.join(
-          __dirname,
-          '../src/generated/i18n.generated.ts',
+          process.cwd(),
+          'src/generated/i18n.generated.ts',
         ),
       }),
-      resolvers: [
-        { use: HeaderResolver, options: ['lang'] },
-        AcceptLanguageResolver,
-        new HeaderResolver(['x-custom-lang']),
-      ],
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],

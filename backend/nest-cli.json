@@ -7,6 +7,15 @@
     "watchAssets": true,
     "builder": "swc",
     "typeCheck": true,
-    "assets": [{ "include": "i18n/**/*", "watchAssets": true }]
+    "assets": [
+      {
+        "include": "i18n/**/*",
+        "outDir": "dist/src/"
+      },
+      {
+        "include": "generated/**/*",
+        "outDir": "dist/src/generated"
+      }
+    ]
   }
 }
