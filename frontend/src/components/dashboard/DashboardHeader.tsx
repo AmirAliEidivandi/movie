@@ -120,7 +120,9 @@ export function DashboardHeader() {
                           : ""
                       } ${
                         isDarkMode ? "text-gray-200" : "text-gray-900"
-                      } block w-full px-4 py-2 text-sm text-left`}
+                      } block w-full px-4 py-2 text-sm ${
+                        isRTL ? "text-right" : "text-left"
+                      }`}
                     >
                       {t("dashboard.signOut")}
                     </button>

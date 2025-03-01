@@ -433,15 +433,73 @@ export function SettingsForm() {
               {t("settings.enterVerificationCode")}
             </Dialog.Title>
             <form onSubmit={handleVerificationSubmit} className="space-y-4">
-              <FormInput
-                label={t("settings.verificationCode")}
-                id="verificationCode"
-                name="verificationCode"
-                type="text"
-                value={verificationCode}
-                onChange={(e) => setVerificationCode(e.target.value)}
-                placeholder={t("settings.enterCode")}
-              />
+              <div>
+                <label
+                  className={`block text-sm font-medium mb-2 ${
+                    isDarkMode ? "text-gray-200" : "text-gray-700"
+                  }`}
+                >
+                  {t("settings.verificationCode")}
+                </label>
+                <div className="flex justify-center gap-2">
+                  {[0, 1, 2, 3, 4, 5].map((index) => (
+                    <input
+                      key={index}
+                      type="text"
+                      maxLength={1}
+                      className={`w-12 h-12 text-center text-lg font-medium rounded-md
+                        ${
+                          isDarkMode
+                            ? "bg-gray-700 border-gray-600 text-white"
+                            : "bg-white border-gray-300 text-gray-900"
+                        }
+                        border-2 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500`}
+                      value={verificationCode[index] || ""}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (/^[0-9]?$/.test(value)) {
+                          const newCode = verificationCode.split("");
+                          newCode[index] = value;
+                          setVerificationCode(newCode.join(""));
+
+                          // Auto-focus next input if a digit was entered
+                          if (value && index < 5) {
+                            const nextInput = e.target.parentElement?.children[
+                              index + 1
+                            ] as HTMLInputElement;
+                            if (nextInput) nextInput.focus();
+                          }
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        // Handle backspace to go to previous input
+                        if (
+                          e.key === "Backspace" &&
+                          !verificationCode[index] &&
+                          index > 0
+                        ) {
+                          const prevInput = e.currentTarget.parentElement
+                            ?.children[index - 1] as HTMLInputElement;
+                          if (prevInput) prevInput.focus();
+                        }
+                      }}
+                      onPaste={(e) => {
+                        e.preventDefault();
+                        const pastedData = e.clipboardData
+                          .getData("text/plain")
+                          .trim();
+                        if (/^\d+$/.test(pastedData)) {
+                          const digits = pastedData.slice(0, 6).split("");
+                          setVerificationCode(
+                            digits.join("") +
+                              verificationCode.slice(digits.length)
+                          );
+                        }
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
               <div className="flex justify-end space-x-3">
                 <button
                   type="button"
@@ -458,12 +516,14 @@ export function SettingsForm() {
                 </button>
                 <button
                   type="submit"
+                  disabled={verificationCode.length !== 6}
                   className={`px-4 py-2 rounded-lg text-sm font-medium text-white
                     ${
                       isDarkMode
                         ? "bg-indigo-500 hover:bg-indigo-600"
                         : "bg-indigo-600 hover:bg-indigo-700"
                     }
+                    disabled:opacity-50
                   `}
                 >
                   {t("common.verify")}
