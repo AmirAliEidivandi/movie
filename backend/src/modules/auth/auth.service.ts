@@ -59,8 +59,10 @@ export class AuthService {
     loginDto: LoginDto,
     lang: string,
   ): Promise<{ accessToken: string; refreshToken: string }> {
-    const { email, password } = loginDto;
-    const user = await this.userModel.findOne({ email });
+    const { emailOrUsername, password } = loginDto;
+    const user = await this.userModel.findOne({
+      $or: [{ email: emailOrUsername }, { username: emailOrUsername }],
+    });
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException(

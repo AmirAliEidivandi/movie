@@ -4,6 +4,7 @@
     "loginAccount": "Login to your account",
     "username": "Username",
     "email": "Email address",
+    "emailOrUsername": "Email or Username",
     "password": "Password",
     "confirmPassword": "Confirm Password",
     "signUp": "Sign up",
@@ -40,6 +41,7 @@
   "placeholders": {
     "enterUsername": "Enter your username",
     "enterEmail": "Enter your email",
+    "enterEmailOrUsername": "Enter your email or username",
     "enterPassword": "Enter your password",
     "confirmPassword": "Confirm your password",
     "enterNewPassword": "Enter new password",

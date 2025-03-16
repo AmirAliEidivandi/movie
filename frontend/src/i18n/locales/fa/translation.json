@@ -4,6 +4,7 @@
     "loginAccount": "ورود به حساب کاربری",
     "username": "نام کاربری",
     "email": "آدرس ایمیل",
+    "emailOrUsername": "ایمیل یا نام کاربری",
     "password": "رمز عبور",
     "confirmPassword": "تایید رمز عبور",
     "signUp": "ثبت نام",
@@ -16,36 +17,36 @@
     "light": "روشن",
     "dark": "تاریک",
     "registrationSuccess": "ثبت نام با موفقیت انجام شد!",
-    "forgotPassword": "فراموشی رمز عبور",
-    "resetPassword": "بازیابی رمز عبور",
-    "resetPasswordInstructions": "آدرس ایمیل خود را وارد کنید و ما به شما دستورالعمل‌های بازیابی رمز عبور را ارسال خواهیم کرد.",
-    "passwordResetSent": "دستورالعمل‌های بازیابی رمز عبور به ایمیل شما ارسال شده است.",
+    "forgotPassword": "فراموشی رمز عبور؟",
+    "resetPassword": "بازنشانی رمز عبور",
+    "resetPasswordInstructions": "آدرس ایمیل خود را وارد کنید تا دستورالعمل‌های بازنشانی رمز عبور را برایتان ارسال کنیم.",
+    "passwordResetSent": "دستورالعمل‌های بازنشانی رمز عبور به ایمیل شما ارسال شد.",
     "changePassword": "تغییر رمز عبور",
     "oldPassword": "رمز عبور فعلی",
     "newPassword": "رمز عبور جدید",
-    "confirmNewPassword": "رمز عبور جدید را تایید کنید",
-    "passwordChanged": "رمز عبور با موفقیت تغییر یافت",
+    "confirmNewPassword": "تایید رمز عبور جدید",
+    "passwordChanged": "رمز عبور با موفقیت تغییر کرد",
     "logoutSuccess": "با موفقیت خارج شدید",
     "backToLogin": "بازگشت به صفحه ورود",
-    "rememberPassword": "رمز عبور خود را به یاد آوردید؟",
-    "resetEmailSent": "دستورالعمل‌های بازیابی به ایمیل شما ارسال شد",
+    "rememberPassword": "رمز عبور را به خاطر دارید؟",
+    "resetEmailSent": "دستورالعمل‌های بازنشانی به ایمیل شما ارسال شد",
     "checkEmail": "ایمیل خود را بررسی کنید",
-    "resetInstructions": "ما دستورالعمل‌های بازیابی رمز عبور را به آدرس ایمیل شما ارسال کردیم.",
-    "sendInstructions": "ارسال دستورالعمل‌های بازیابی",
+    "resetInstructions": "ما دستورالعمل‌های بازنشانی رمز عبور را به آدرس ایمیل شما ارسال کردیم.",
+    "sendInstructions": "ارسال دستورالعمل‌ها",
     "sendingInstructions": "در حال ارسال دستورالعمل‌ها...",
-    "resetting": "در حال بازیابی رمز عبور...",
-    "passwordResetSuccess": "رمز عبور با موفقیت بازیابی شد",
-    "logoutError": "خروج با شکست مواجه شد. لطفاً دوباره تلاش کنید.",
+    "resetting": "در حال بازنشانی رمز عبور...",
+    "passwordResetSuccess": "رمز عبور با موفقیت بازنشانی شد",
     "loggingOut": "در حال خروج..."
   },
   "placeholders": {
     "enterUsername": "نام کاربری خود را وارد کنید",
     "enterEmail": "ایمیل خود را وارد کنید",
+    "enterEmailOrUsername": "ایمیل یا نام کاربری خود را وارد کنید",
     "enterPassword": "رمز عبور خود را وارد کنید",
     "confirmPassword": "رمز عبور را تایید کنید",
     "enterNewPassword": "رمز عبور جدید را وارد کنید",
     "confirmNewPassword": "رمز عبور جدید را تایید کنید",
-    "enterCurrentPassword": "رمز عبور فعلی خود را وارد کنید"
+    "enterCurrentPassword": "رمز عبور فعلی را وارد کنید"
   },
   "errors": {
     "usernameRequired": "نام کاربری نمی‌تواند خالی باشد",
@@ -54,12 +55,12 @@
     "passwordRequired": "رمز عبور نمی‌تواند خالی باشد",
     "passwordLength": "رمز عبور باید حداقل ۶ کاراکتر باشد",
     "confirmPasswordRequired": "تایید رمز عبور نمی‌تواند خالی باشد",
-    "passwordsDoNotMatch": "رمز عبور و تایید آن مطابقت ندارند",
+    "passwordsDoNotMatch": "رمزهای عبور مطابقت ندارند",
     "invalidOldPassword": "رمز عبور فعلی نامعتبر است",
-    "pageNotFound": "صفحه مورد نظر یافت نشد",
-    "pageNotFoundMessage": "متأسفیم، صفحه‌ای که به دنبال آن هستید پیدا نشد.",
-    "general": "مشکلی پیش آمده است. لطفاً دوباره تلاش کنید.",
-    "invalidToken": "توکن بازیابی نامعتبر یا منقضی شده است"
+    "pageNotFound": "صفحه یافت نشد",
+    "pageNotFoundMessage": "متأسفیم، صفحه مورد نظر شما یافت نشد.",
+    "invalidToken": "توکن نامعتبر یا منقضی شده",
+    "general": "خطایی رخ داد. لطفاً دوباره تلاش کنید."
   },
   "actions": {
     "goBack": "بازگشت",
@@ -142,5 +143,8 @@
   },
   "home": {
     "title": "صفحه اصلی"
+  },
+  "validation": {
+    "required": "{{field}} الزامی است"
   }
 }

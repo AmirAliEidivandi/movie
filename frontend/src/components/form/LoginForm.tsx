@@ -1,27 +1,27 @@
 import { FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../../api/auth";
 import { useTheme } from "../../contexts/ThemeContext";
 import { EmailIcon, LockIcon } from "../icons";
 import { FormInput } from "./FormInput";
-import { login } from "../../api/auth";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 interface LoginData {
-  email: string;
+  emailOrUsername: string;
   password: string;
 }
 
 interface LoginErrors {
-  email?: string;
+  emailOrUsername?: string;
   password?: string;
   submit?: string;
 }
+
 export function LoginForm() {
   const { isDarkMode } = useTheme();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [loginData, setLoginData] = useState<LoginData>({
-    email: "",
+    emailOrUsername: "",
     password: "",
   });
 
@@ -29,17 +29,21 @@ export function LoginForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
+  const isRTL = i18n.language === "fa";
+
   const validateForm = (): boolean => {
     const newErrors: LoginErrors = {};
 
-    if (!loginData.email.trim()) {
-      newErrors.email = t("errors.emailRequired");
-    } else if (!/\S+@\S+\.\S+/.test(loginData.email)) {
-      newErrors.email = t("errors.emailInvalid");
+    if (!loginData.emailOrUsername.trim()) {
+      newErrors.emailOrUsername = t("validation.required", {
+        field: t("auth.emailOrUsername"),
+      });
     }
 
     if (!loginData.password.trim()) {
-      newErrors.password = t("errors.passwordRequired");
+      newErrors.password = t("validation.required", {
+        field: t("auth.password"),
+      });
     }
 
     setErrors(newErrors);
@@ -61,21 +65,18 @@ export function LoginForm() {
       try {
         setIsSubmitting(true);
         const response = await login({
-          email: loginData.email,
+          emailOrUsername: loginData.emailOrUsername,
           password: loginData.password,
         });
 
-        // Store token in localStorage
         localStorage.setItem("accessToken", response.accessToken);
         localStorage.setItem("refreshToken", response.refreshToken);
 
-        // Navigate to dashboard
         navigate("/dashboard");
       } catch (error: any) {
-        // Handle error (show error message)
         setErrors({
           ...errors,
-          submit: error.response?.data?.message || "Login failed"
+          submit: error.response?.data?.message || t("errors.general"),
         });
       } finally {
         setIsSubmitting(false);
@@ -85,22 +86,24 @@ export function LoginForm() {
 
   return (
     <div
+      dir={isRTL ? "rtl" : "ltr"}
       className={`${
         isDarkMode ? "bg-gray-800" : "bg-white/80"
       } backdrop-blur-sm py-8 px-4 shadow-lg sm:rounded-lg sm:px-10`}
     >
       <form className="space-y-6" onSubmit={handleSubmit}>
         <FormInput
-          label={t("auth.email")}
-          id="email"
-          name="email"
-          type="email"
+          label={t("auth.emailOrUsername")}
+          id="emailOrUsername"
+          name="emailOrUsername"
+          type="text"
           required
           icon={<EmailIcon />}
-          value={loginData.email}
+          value={loginData.emailOrUsername}
           onChange={handleInputChange}
-          error={errors.email}
-          placeholder={t("placeholders.enterEmail")}
+          error={errors.emailOrUsername}
+          placeholder={t("placeholders.enterEmailOrUsername")}
+          dir={isRTL ? "rtl" : "ltr"}
         />
 
         <FormInput
@@ -114,14 +117,19 @@ export function LoginForm() {
           onChange={handleInputChange}
           error={errors.password}
           placeholder={t("placeholders.enterPassword")}
+          dir={isRTL ? "rtl" : "ltr"}
         />
 
-        <div className="flex items-center justify-end">
+        <div
+          className={`flex items-center ${
+            isRTL ? "justify-start" : "justify-end"
+          }`}
+        >
           <Link
             to="/forgot-password"
             className={`text-sm font-medium ${
-              isDarkMode 
-                ? "text-indigo-400 hover:text-indigo-300" 
+              isDarkMode
+                ? "text-indigo-400 hover:text-indigo-300"
                 : "text-indigo-600 hover:text-indigo-500"
             }`}
           >
