@@ -1,6 +1,13 @@
 import { CacheLoggerInterceptor } from '@interceptors/cache-logger.interceptor';
 import { TransformInterceptor } from '@interceptors/transform.interceptor';
-import { Controller, Get, Param, Query, UseInterceptors } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Query,
+  UseInterceptors,
+} from '@nestjs/common';
 import { MovieQueryDto } from './dto/movie-query.dto';
 import {
   MovieResponse,
@@ -35,19 +42,29 @@ export class MoviesController {
     return this.moviesService.getTrendingMovies();
   }
 
+  @Get('discover')
+  async discoverMovies(
+    @Query('sort_by') sortBy: string,
+    @Query('vote_count.gte') minVoteCount: number,
+  ): Promise<MoviesListResponse> {
+    return this.moviesService.discoverMovies({ sortBy, minVoteCount });
+  }
+
   @Get('genres')
   async getGenres() {
     return this.moviesService.getGenres();
   }
 
   @Get(':id')
-  async getMovieDetails(@Param('id') id: number): Promise<MovieResponse> {
+  async getMovieDetails(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<MovieResponse> {
     return this.moviesService.getMovieDetails(id);
   }
 
   @Get('genre/:id')
   async getMoviesByGenre(
-    @Param('id') genreId: number,
+    @Param('id', ParseIntPipe) genreId: number,
   ): Promise<MoviesListResponse> {
     return this.moviesService.getMoviesByGenre(genreId);
   }

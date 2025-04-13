@@ -1,6 +1,52 @@
+/* Custom Font Loading */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Base styles */
+@layer base {
+  body {
+    @apply antialiased font-sans text-base;
+  }
+
+  /* Enable smooth scrolling globally */
+  html {
+    @apply scroll-smooth;
+  }
+
+  /* Add a custom selection color */
+  ::selection {
+    @apply bg-primary-500/20 text-primary-950;
+  }
+}
+
+/* Custom components */
+@layer components {
+  /* Button styles */
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary-200 text-secondary-900 hover:bg-secondary-300 focus:ring-secondary-300;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-white dark:bg-secondary-800 rounded-xl shadow-md overflow-hidden;
+  }
+
+  /* Animated gradient text */
+  .gradient-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-indigo-600 animate-gradient-text;
+  }
+}
 
 /* RTL Support */
 [dir="rtl"] {
@@ -114,14 +160,44 @@
   @apply flex flex-row-reverse !important;
 }
 
-/* Add these scrollbar styles */
+/* Custom scrollbar styles */
 @layer utilities {
   .scrollbar-custom {
     @apply scrollbar-thin scrollbar-track-transparent hover:scrollbar-track-gray-200 dark:hover:scrollbar-track-gray-700 scrollbar-thumb-gray-400 dark:scrollbar-thumb-gray-600;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Movie card hover effects */
+  .movie-card-hover {
+    @apply transition-all duration-300 ease-in-out;
   }
 }
 
 /* Apply the custom scrollbar to the main content area */
 main {
   @apply scrollbar-custom;
+}
+
+/* Animation for content loading */
+.pulse-loading {
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }

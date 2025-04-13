@@ -11,6 +11,11 @@ import {
   MoviesListResponse,
 } from './interfaces/movie.interface';
 
+interface DiscoverOptions {
+  sortBy: string;
+  minVoteCount: number;
+}
+
 @Injectable()
 export class MoviesService {
   private readonly apiKey: string;
@@ -240,5 +245,37 @@ export class MoviesService {
 
   async invalidateTrendingMoviesCache(): Promise<void> {
     await this.invalidateCache('trending_movies');
+  }
+
+  async discoverMovies({
+    sortBy,
+    minVoteCount,
+  }: DiscoverOptions): Promise<MoviesListResponse> {
+    const cacheKey = this.getCacheKey('discover', sortBy, minVoteCount);
+    const cachedData = await this.cacheGet<MoviesListResponse>(cacheKey);
+
+    if (cachedData) {
+      return cachedData;
+    }
+
+    try {
+      const response = await this.httpService
+        .get<MoviesListResponse>(`${this.apiBaseUrl}/discover/movie`, {
+          params: {
+            api_key: this.apiKey,
+            sort_by: sortBy,
+            'vote_count.gte': minVoteCount,
+          },
+        })
+        .toPromise();
+
+      await this.cacheSet(cacheKey, response.data, CACHE_CONFIG.ttl.popular);
+      return response.data;
+    } catch (error) {
+      throw new HttpException(
+        'Failed to fetch discovered movies',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }
