@@ -4,9 +4,9 @@ import {
   LockClosedIcon,
 } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   changePassword,
   deleteAccount,

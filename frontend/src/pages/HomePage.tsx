@@ -5,9 +5,9 @@ import {
 } from "@heroicons/react/20/solid";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { movieApi } from "../api/movieApi";
 import { MovieSection } from "../components/movies/MovieSection";
 

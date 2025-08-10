@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
-import { toast } from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 import { forgotPassword } from "../../api/auth";
 import { useTheme } from "../../contexts/ThemeContext";
 import { EmailIcon } from "../icons";

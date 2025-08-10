@@ -5,9 +5,9 @@ import {
   PhoneIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 import { getProfile, updateProfile } from "../../api/auth";
 import { useTheme } from "../../contexts/ThemeContext";
 import { FormInput } from "../form/FormInput";
@@ -58,6 +58,14 @@ export function ProfileForm() {
     "Thriller",
     "Documentary",
   ];
+
+  // Determine whether any field has been changed compared to the originally
+  // loaded profile. When there are no changes, the Save button should be
+  // disabled.
+  const hasChanges = useMemo(() => {
+    if (!originalProfileData) return false;
+    return JSON.stringify(profileData) !== JSON.stringify(originalProfileData);
+  }, [profileData, originalProfileData]);
 
   const handleGenreChange = (genre: string, checked: boolean) => {
     setProfileData((prev) => ({
@@ -336,7 +344,7 @@ export function ProfileForm() {
       <div className="flex justify-end">
         <button
           type="submit"
-          disabled={isSaving}
+          disabled={isSaving || !hasChanges}
           className={`px-6 py-2.5 rounded-lg text-sm font-medium text-white
             ${
               isDarkMode
