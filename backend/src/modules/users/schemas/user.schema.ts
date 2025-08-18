@@ -58,6 +58,9 @@ export class User {
 
   @Prop({ default: false })
   isEmailVerified?: boolean;
+
+  @Prop({ type: Number, default: 0 })
+  bonusBalance?: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

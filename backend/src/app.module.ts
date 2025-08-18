@@ -1,5 +1,6 @@
 import { AuthModule } from '@auth/auth.module';
 import databaseConfig from '@config/database.config';
+import zarinpalConfig from '@config/zarinpal.config';
 import { HealthController } from '@health/health.controller';
 import { MoviesModule } from '@movies/movies.module';
 import { HttpModule } from '@nestjs/axios';
@@ -15,12 +16,13 @@ import { HeaderResolver, I18nModule } from 'nestjs-i18n';
 import * as path from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { WalletModule } from './modules/wallet/wallet.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
-      load: [databaseConfig],
+      load: [databaseConfig, zarinpalConfig],
       envFilePath: `.env.${process.env.NODE_ENV || 'local'}`,
     }),
     CacheModule.register({
@@ -66,6 +68,7 @@ import { AppService } from './app.service';
     HttpModule,
     AuthModule,
     UsersModule,
+    WalletModule,
     MoviesModule,
   ],
   controllers: [AppController, HealthController],

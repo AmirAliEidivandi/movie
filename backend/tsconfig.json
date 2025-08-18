@@ -30,7 +30,8 @@
       "@movies/*": ["src/modules/movies/*"],
       "@users/*": ["src/modules/users/*"],
       "@auth/*": ["src/modules/auth/*"],
-      "@logger/*": ["src/common/logger/*"]
+      "@logger/*": ["src/common/logger/*"],
+      "@wallet/*": ["src/modules/wallet/*"]
     }
   }
 }

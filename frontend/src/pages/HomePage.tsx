@@ -32,7 +32,7 @@ export default function HomePage() {
   const [topRatedMovies, setTopRatedMovies] = useState<MovieDisplay[]>([]);
   const [searchResults, setSearchResults] = useState<MovieDisplay[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage] = useState(1);
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
 
   useEffect(() => {

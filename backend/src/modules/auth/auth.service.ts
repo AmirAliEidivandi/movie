@@ -8,6 +8,7 @@ import {
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
+import { WalletService } from '@wallet/wallet.service';
 import * as bcrypt from 'bcryptjs';
 import * as crypto from 'crypto';
 import { randomUUID } from 'crypto';
@@ -28,6 +29,7 @@ export class AuthService {
     private configService: ConfigService,
     private mailerService: MailerService,
     private i18n: I18nService,
+    private walletService: WalletService,
   ) {}
 
   async signUp(
@@ -49,6 +51,9 @@ export class AuthService {
       ...signUpDto,
       password: hashedPassword,
     });
+
+    // Ensure user has a wallet on signup
+    await this.walletService.getOrCreateWallet(user._id);
 
     const accessToken = this.generateAccessToken(user._id);
     const refreshToken = await this.generateRefreshToken(user._id);

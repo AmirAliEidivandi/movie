@@ -1,6 +1,7 @@
 import {
   ClockIcon,
   CogIcon,
+  CreditCardIcon,
   FilmIcon,
   HeartIcon,
   HomeIcon,
@@ -25,6 +26,7 @@ export function DashboardSidebar() {
   const navItems: NavItem[] = [
     { path: "/dashboard", label: "dashboard.home", icon: HomeIcon },
     { path: "/dashboard/profile", label: "dashboard.profile", icon: UserIcon },
+    { path: "/dashboard/wallet", label: "Wallet", icon: CreditCardIcon },
     { path: "/dashboard/movies", label: "dashboard.movies", icon: FilmIcon },
     {
       path: "/dashboard/favorites",
